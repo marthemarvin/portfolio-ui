@@ -1,17 +1,12 @@
-.topbar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
-  max-width: 64rem;
+.topbar,
+.home {
+  max-width: 48rem;
   margin: 0 auto;
-  padding: 1.5rem 1rem;
+  padding-inline: 1rem;
 }
 
-.name {
-  color: var(--ink);
-  font-weight: 600;
-  text-decoration: none;
+.topbar {
+  padding-block: 1.5rem;
 }
 
 nav {
@@ -20,16 +15,19 @@ nav {
 }
 
 nav a {
-  color: var(--ink);
+  color: var(--muted);
   text-decoration: none;
 }
 
-nav a:hover {
-  color: var(--rosewood);
+nav a:hover,
+nav a.active {
+  color: var(--ink);
+}
+
+nav a.active {
+  font-weight: 500;
 }
 
 .home {
-  max-width: 64rem;
-  margin: 0 auto;
-  padding: 2rem 1rem 4rem;
+  padding-block: 2rem 4rem;
 }

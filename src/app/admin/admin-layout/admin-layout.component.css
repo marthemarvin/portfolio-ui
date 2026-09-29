@@ -11,7 +11,7 @@
   width: 14rem;
   flex-shrink: 0;
   padding: 2rem 1rem;
-  background: var(--petal);
+  background: var(--surface);
 }
 
 .sidebar a {
@@ -22,12 +22,12 @@
 }
 
 .sidebar a:hover {
-  background: var(--blush);
+  background: var(--bg);
 }
 
 .sidebar a.active {
-  background: var(--blush);
-  color: var(--rosewood);
+  background: var(--bg);
+  color: var(--accent);
   font-weight: 500;
 }
 

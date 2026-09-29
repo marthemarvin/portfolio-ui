@@ -1,17 +1,18 @@
 import { Component } from '@angular/core';
-import { SectionComponent } from '../shared/section/section.component';
-import { CoursesSectionComponent } from './courses-section/courses-section.component';
+import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 
+// The public site: top bar with page links, and the current page below it.
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [SectionComponent, CoursesSectionComponent],
+  imports: [RouterOutlet, RouterLink, RouterLinkActive],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
 export class HomeComponent {
-  // Add a line here for each new section, and an <app-section> in the template.
-  sections = [
-    { id: 'courses', label: 'Courses' }
+  // Add a line here for each new page, and a route in app.routes.ts.
+  pages = [
+    { label: 'About', path: '/' },
+    { label: 'Courses', path: '/courses' }
   ];
 }

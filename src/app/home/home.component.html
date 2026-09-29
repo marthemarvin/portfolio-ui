@@ -1,14 +1,12 @@
 <header class="topbar">
-  <a class="name" href="/">Marwan</a>
-  <nav aria-label="Sections">
-    @for (section of sections; track section.id) {
-      <a [href]="'#' + section.id">{{ section.label }}</a>
+  <nav aria-label="Pages">
+    @for (page of pages; track page.path) {
+      <a [routerLink]="page.path" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }"
+         ariaCurrentWhenActive="page">{{ page.label }}</a>
     }
   </nav>
 </header>
 
 <main class="home">
-  <app-section sectionId="courses" title="Courses">
-    <app-courses-section />
-  </app-section>
+  <router-outlet />
 </main>

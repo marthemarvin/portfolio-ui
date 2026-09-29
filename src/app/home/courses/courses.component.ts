@@ -1,15 +1,17 @@
 import { Component, OnInit, PLATFORM_ID, inject } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
+import { PageHeaderComponent } from '../../shared/page-header/page-header.component';
 import { Course } from '../../admin/courses/course';
 import { CourseService } from '../../admin/courses/course.service';
 
 @Component({
-  selector: 'app-courses-section',
+  selector: 'app-courses',
   standalone: true,
-  templateUrl: './courses-section.component.html',
-  styleUrl: './courses-section.component.css'
+  imports: [PageHeaderComponent],
+  templateUrl: './courses.component.html',
+  styleUrl: './courses.component.css'
 })
-export class CoursesSectionComponent implements OnInit {
+export class CoursesComponent implements OnInit {
   private courseService = inject(CourseService);
   private isBrowser = isPlatformBrowser(inject(PLATFORM_ID));
 
