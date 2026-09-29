@@ -1,5 +1,3 @@
-<app-page-header [title]="id ? 'Edit course' : 'Add course'" />
-
 <form class="stack" [formGroup]="form" (ngSubmit)="save()" novalidate>
   <app-form-field label="Title" fieldId="title" [error]="titleError()">
     <input id="title" formControlName="title" [attr.aria-invalid]="!!titleError()" aria-describedby="title-error">
@@ -32,6 +30,6 @@
 
   <div class="form-actions">
     <button type="submit" [disabled]="saving">{{ saving ? 'Saving…' : 'Save course' }}</button>
-    <a routerLink="/admin/courses">Cancel</a>
+    <button type="button" class="secondary" (click)="cancelled.emit()">Cancel</button>
   </div>
 </form>

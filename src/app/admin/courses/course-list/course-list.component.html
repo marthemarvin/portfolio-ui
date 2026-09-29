@@ -1,5 +1,5 @@
 <app-page-header title="Courses">
-  <a class="button" routerLink="new">Add course</a>
+  <button type="button" (click)="openForm(null)">Add course</button>
 </app-page-header>
 
 @if (error) {
@@ -24,7 +24,7 @@
             <td>{{ course.author }}</td>
             <td>{{ course.isActive ? 'Active' : 'Hidden' }}</td>
             <td class="actions">
-              <a [routerLink]="[course.id]">Edit</a>
+              <button type="button" class="link" (click)="openForm(course)">Edit</button>
               <button type="button" class="link" (click)="remove(course)">Delete</button>
             </td>
           </tr>
@@ -37,4 +37,10 @@
   }
 } @else if (!error) {
   <p>Loading…</p>
+}
+
+@if (formOpen) {
+  <app-modal [title]="selected ? 'Edit course' : 'Add course'" (closed)="closeForm()">
+    <app-course-form [course]="selected" (saved)="onSaved()" (cancelled)="closeForm()" />
+  </app-modal>
 }

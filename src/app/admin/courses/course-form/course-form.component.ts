@@ -1,25 +1,22 @@
-import { Component, OnInit, PLATFORM_ID, inject } from '@angular/core';
-import { isPlatformBrowser } from '@angular/common';
+import { Component, EventEmitter, Input, OnInit, Output, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { FormFieldComponent } from '../../../shared/form-field/form-field.component';
-import { PageHeaderComponent } from '../../../shared/page-header/page-header.component';
+import { Course } from '../course';
 import { CourseService } from '../course.service';
 
-// Used for both /admin/courses/new and /admin/courses/:id.
+// Adds a course, or edits `course` when one is passed in.
 @Component({
   selector: 'app-course-form',
   standalone: true,
-  imports: [ReactiveFormsModule, RouterLink, FormFieldComponent, PageHeaderComponent],
+  imports: [ReactiveFormsModule, FormFieldComponent],
   templateUrl: './course-form.component.html'
 })
 export class CourseFormComponent implements OnInit {
   private courses = inject(CourseService);
-  private isBrowser = isPlatformBrowser(inject(PLATFORM_ID));
-  private router = inject(Router);
-  private route = inject(ActivatedRoute);
 
-  id = Number(this.route.snapshot.paramMap.get('id')) || null;
+  @Input() course: Course | null = null;
+  @Output() saved = new EventEmitter<void>();
+  @Output() cancelled = new EventEmitter<void>();
 
   form = inject(FormBuilder).nonNullable.group({
     title: ['', Validators.required],
@@ -34,21 +31,16 @@ export class CourseFormComponent implements OnInit {
   error = '';
 
   ngOnInit(): void {
-    // Load in the browser only; the server has no token.
-    if (!this.id || !this.isBrowser) {
-      return;
+    if (this.course) {
+      this.form.patchValue({
+        title: this.course.title,
+        author: this.course.author ?? '',
+        description: this.course.description ?? '',
+        link: this.course.link ?? '',
+        image: this.course.image ?? '',
+        isActive: this.course.isActive
+      });
     }
-    this.courses.get(this.id).subscribe({
-      next: course => this.form.patchValue({
-        title: course.title,
-        author: course.author ?? '',
-        description: course.description ?? '',
-        link: course.link ?? '',
-        image: course.image ?? '',
-        isActive: course.isActive
-      }),
-      error: () => this.error = 'Couldn’t load this course. Go back to Courses and try again.'
-    });
   }
 
   save(): void {
@@ -60,10 +52,10 @@ export class CourseFormComponent implements OnInit {
     this.saving = true;
     this.error = '';
     const body = this.form.getRawValue();
-    const request = this.id ? this.courses.update(this.id, body) : this.courses.create(body);
+    const request = this.course ? this.courses.update(this.course.id, body) : this.courses.create(body);
 
     request.subscribe({
-      next: () => this.router.navigate(['/admin/courses']),
+      next: () => this.saved.emit(),
       error: () => {
         this.saving = false;
         this.error = 'Couldn’t save the course. Try again.';

@@ -1,16 +1,17 @@
 import { Component, OnInit, PLATFORM_ID, inject } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
-import { RouterLink } from '@angular/router';
+import { ModalComponent } from '../../../shared/modal/modal.component';
 import { PageHeaderComponent } from '../../../shared/page-header/page-header.component';
 import { PagerComponent } from '../../../shared/pager/pager.component';
 import { Page } from '../../../shared/page';
 import { Course } from '../course';
+import { CourseFormComponent } from '../course-form/course-form.component';
 import { CourseService } from '../course.service';
 
 @Component({
   selector: 'app-course-list',
   standalone: true,
-  imports: [RouterLink, PageHeaderComponent, PagerComponent],
+  imports: [PageHeaderComponent, PagerComponent, ModalComponent, CourseFormComponent],
   templateUrl: './course-list.component.html'
 })
 export class CourseListComponent implements OnInit {
@@ -19,6 +20,10 @@ export class CourseListComponent implements OnInit {
 
   page: Page<Course> | null = null;
   error = '';
+
+  // The pop-up is open while formOpen is true; `selected` is the course being edited, or null when adding.
+  formOpen = false;
+  selected: Course | null = null;
 
   ngOnInit(): void {
     // Load in the browser only; the server has no token.
@@ -33,6 +38,21 @@ export class CourseListComponent implements OnInit {
       next: page => this.page = page,
       error: () => this.error = 'Couldn’t load courses. Refresh the page to try again.'
     });
+  }
+
+  openForm(course: Course | null): void {
+    this.selected = course;
+    this.formOpen = true;
+  }
+
+  closeForm(): void {
+    this.formOpen = false;
+  }
+
+  onSaved(): void {
+    this.closeForm();
+    // New courses appear first, so go back to page 1 after adding.
+    this.load(this.selected ? this.page?.number ?? 0 : 0);
   }
 
   remove(course: Course): void {

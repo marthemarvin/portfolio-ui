@@ -42,9 +42,7 @@ a:hover {
   color: var(--rosewood-dark);
 }
 
-button,
-.button {
-  display: inline-block;
+button {
   padding: 0.8rem 1.25rem;
   border: 1px solid var(--rosewood);
   border-radius: 10px;
@@ -52,13 +50,11 @@ button,
   color: #fff;
   font: inherit;
   font-weight: 500;
-  text-decoration: none;
   cursor: pointer;
   transition: background-color 150ms ease, border-color 150ms ease;
 }
 
-button:hover:not(:disabled),
-.button:hover {
+button:hover:not(:disabled) {
   background: var(--rosewood-dark);
   border-color: var(--rosewood-dark);
 }
@@ -168,6 +164,27 @@ textarea {
   display: flex;
   align-items: center;
   gap: 1.25rem;
+}
+
+/* Pop-up (shared/modal) */
+dialog {
+  width: min(36rem, calc(100vw - 2rem));
+  max-height: calc(100dvh - 2rem);
+  padding: 2rem;
+  border: 0;
+  border-radius: 16px;
+  background: var(--blush);
+  color: inherit;
+}
+
+dialog::backdrop {
+  background: rgb(58 31 39 / 0.4);
+}
+
+dialog h2 {
+  margin: 0 0 1.5rem;
+  font-size: 1.5rem;
+  font-weight: 600;
 }
 
 /* Page header, table, pager */
