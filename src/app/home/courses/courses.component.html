@@ -1,0 +1,38 @@
+<app-page-header title="Courses" />
+
+@if (error) {
+  <p class="form-error" role="alert">{{ error }}</p>
+} @else if (courses) {
+  @if (courses.length) {
+    <ul class="courses">
+      @for (course of courses; track course.id) {
+        <li>
+          @if (course.image) {
+            <img [src]="course.image" alt="">
+          }
+          <div class="text">
+            <div class="heading">
+              <h2>
+                @if (course.link) {
+                  <a [href]="course.link">{{ course.title }}</a>
+                } @else {
+                  {{ course.title }}
+                }
+              </h2>
+              @if (course.author) {
+                <span class="author">{{ course.author }}</span>
+              }
+            </div>
+            @if (course.description) {
+              <p>{{ course.description }}</p>
+            }
+          </div>
+        </li>
+      }
+    </ul>
+  } @else {
+    <p>No courses yet.</p>
+  }
+} @else {
+  <p>Loading…</p>
+}
