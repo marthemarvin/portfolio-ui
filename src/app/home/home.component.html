@@ -1,7 +1,7 @@
 <header class="topbar">
   <nav aria-label="Pages">
     @for (page of pages; track page.path) {
-      <a [routerLink]="page.path" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }"
+      <a [routerLink]="page.path" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: page.path === '/' }"
          ariaCurrentWhenActive="page">{{ page.label }}</a>
     }
   </nav>

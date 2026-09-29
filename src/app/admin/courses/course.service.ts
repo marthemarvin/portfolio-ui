@@ -14,4 +14,9 @@ export class CourseService extends CrudService<Course, CourseRequest> {
   listPublic(): Observable<Course[]> {
     return this.http.get<Course[]>(`${environment.apiUrl}/api/courses`);
   }
+
+  // One public course by id. The backend returns 404 for hidden or missing courses.
+  getPublic(id: number): Observable<Course> {
+    return this.http.get<Course>(`${environment.apiUrl}/api/courses/${id}`);
+  }
 }

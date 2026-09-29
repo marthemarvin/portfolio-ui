@@ -1,0 +1,22 @@
+img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  margin-bottom: 2rem;
+  border-radius: 12px;
+  object-fit: cover;
+}
+
+.author {
+  margin: 0.5rem 0 0;
+  color: var(--muted);
+}
+
+.description {
+  margin: 1.5rem 0 0;
+  white-space: pre-line;
+}
+
+.button {
+  margin-top: 2rem;
+}

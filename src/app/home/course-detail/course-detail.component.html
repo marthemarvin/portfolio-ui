@@ -1,0 +1,24 @@
+@if (course) {
+  <article>
+    @if (course.image) {
+      <img [src]="course.image" alt="">
+    }
+    <h1>{{ course.title }}</h1>
+    @if (course.author) {
+      <p class="author">{{ course.author }}</p>
+    }
+    @if (course.description) {
+      <p class="description">{{ course.description }}</p>
+    }
+    @if (course.link) {
+      <a class="button" [href]="course.link">Go to course</a>
+    }
+  </article>
+} @else if (notFound) {
+  <h1>Course not found</h1>
+  <p class="description">It may have been removed. <a routerLink="/courses">See all courses</a></p>
+} @else if (error) {
+  <p class="form-error" role="alert">{{ error }}</p>
+} @else {
+  <p>Loading…</p>
+}

@@ -1,5 +1,6 @@
 import { Component, OnInit, PLATFORM_ID, inject } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
+import { RouterLink } from '@angular/router';
 import { PageHeaderComponent } from '../../shared/page-header/page-header.component';
 import { Course } from '../../admin/courses/course';
 import { CourseService } from '../../admin/courses/course.service';
@@ -7,7 +8,7 @@ import { CourseService } from '../../admin/courses/course.service';
 @Component({
   selector: 'app-courses',
   standalone: true,
-  imports: [PageHeaderComponent],
+  imports: [PageHeaderComponent, RouterLink],
   templateUrl: './courses.component.html',
   styleUrl: './courses.component.css'
 })

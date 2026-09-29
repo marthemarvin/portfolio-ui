@@ -13,11 +13,7 @@
           <div class="text">
             <div class="heading">
               <h2>
-                @if (course.link) {
-                  <a [href]="course.link">{{ course.title }}</a>
-                } @else {
-                  {{ course.title }}
-                }
+                <a [routerLink]="['/courses', course.id]">{{ course.title }}</a>
               </h2>
               @if (course.author) {
                 <span class="author">{{ course.author }}</span>

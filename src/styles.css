@@ -62,7 +62,9 @@ a:hover {
   color: var(--accent-dark);
 }
 
-button {
+button,
+.button {
+  display: inline-block;
   padding: 0.8rem 1.25rem;
   border: 1px solid var(--accent);
   border-radius: 10px;
@@ -70,13 +72,16 @@ button {
   color: #fff;
   font: inherit;
   font-weight: 500;
+  text-decoration: none;
   cursor: pointer;
   transition: background-color 150ms ease, border-color 150ms ease;
 }
 
-button:hover:not(:disabled) {
+button:hover:not(:disabled),
+.button:hover {
   background: var(--accent-dark);
   border-color: var(--accent-dark);
+  color: #fff;
 }
 
 button:disabled {
