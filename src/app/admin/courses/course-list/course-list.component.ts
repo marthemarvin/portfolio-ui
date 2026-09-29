@@ -1,21 +1,23 @@
 import { Component, OnInit, PLATFORM_ID, inject } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
+import { CrudFormComponent } from '../../../shared/crud-form/crud-form.component';
 import { ModalComponent } from '../../../shared/modal/modal.component';
 import { PageHeaderComponent } from '../../../shared/page-header/page-header.component';
 import { PagerComponent } from '../../../shared/pager/pager.component';
 import { Page } from '../../../shared/page';
 import { Course } from '../course';
-import { CourseFormComponent } from '../course-form/course-form.component';
+import { courseFields } from '../course-fields';
 import { CourseService } from '../course.service';
 
 @Component({
   selector: 'app-course-list',
   standalone: true,
-  imports: [PageHeaderComponent, PagerComponent, ModalComponent, CourseFormComponent],
+  imports: [PageHeaderComponent, PagerComponent, ModalComponent, CrudFormComponent],
   templateUrl: './course-list.component.html'
 })
 export class CourseListComponent implements OnInit {
-  private courses = inject(CourseService);
+  protected courses = inject(CourseService);
+  protected fields = courseFields;
   private isBrowser = isPlatformBrowser(inject(PLATFORM_ID));
 
   page: Page<Course> | null = null;

@@ -187,6 +187,18 @@ dialog h2 {
   font-weight: 600;
 }
 
+/* Main page sections (shared/section) */
+.section + .section {
+  margin-top: 4rem;
+}
+
+.section h2 {
+  margin: 0 0 1.5rem;
+  font-size: 1.75rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
 /* Page header, table, pager */
 .page-header {
   display: flex;

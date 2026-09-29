@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Overview
 
-Angular 17 frontend (standalone components, SSR + prerendering) for a personal portfolio site, production at `https://marwankw.com`. Pages so far: `/login`, and an admin area at `/admin` (sidebar layout) with one section, Courses (list and delete on the page; add and edit in a pop-up). Shared colours and base styles live in `src/styles.css`, and the API URL is in `src/environments/environment.ts` (production, `https://api.marwankw.com`) and `environment.development.ts` (`ng serve`, `http://localhost:8080`), swapped via `fileReplacements` in `angular.json`.
+Angular 17 frontend (standalone components, SSR + prerendering) for a personal portfolio site, production at `https://marwankw.com`. Pages so far: the public main page `/` (a top bar linking to `app-section`s, with Courses loaded from the public `GET /api/courses` in the browser, because the site is hosted as static files on Netlify and prerendered data would go stale), `/login`, and an admin area at `/admin` (sidebar layout) with one section, Courses (list and delete on the page; add and edit in a pop-up). Shared colours and base styles live in `src/styles.css`, and the API URL is in `src/environments/environment.ts` (production, `https://api.marwankw.com`) and `environment.development.ts` (`ng serve`, `http://localhost:8080`), swapped via `fileReplacements` in `angular.json`.
 
 The backend is a separate Spring Boot 4.1 / Java 21 repo at `~/Desktop/portfolio ` — **the directory name has a trailing space**, so quote the path in shell commands. That repo has its own `CLAUDE.md` with the details.
 
@@ -36,8 +36,8 @@ No linter is configured (no ESLint in `angular.json`). Formatting follows `.edit
 ## Admin sections
 
 - `admin/admin-layout/` is the sidebar and `<router-outlet>`. Its `sections` array drives the sidebar links.
-- To add a section (e.g. projects), copy `admin/courses/`: a model, a service that `extends CrudService<T, TRequest>` with `super('<resource>')`, a list component, and a form component that the list opens inside `app-modal`. Register the routes as children of `admin` in `app.routes.ts`, and add one entry to `sections`.
-- Reuse the shared building blocks in `src/app/shared/`: `CrudService` (calls `/api/admin/<resource>`, typed `Page<T>` for lists), `app-form-field` (label, projected input, error), `app-page-header` (title plus projected buttons), `app-pager`, and `app-modal` (native `<dialog>`: show it with `@if` and it opens itself; Esc emits `closed`). Their styles, and those for tables, buttons and inputs, live in `src/styles.css`, not in component CSS.
+- To add a section (e.g. projects), copy `admin/courses/`: a model, a service that `extends CrudService<T, TRequest>` with `super('<resource>')`, a `*-fields.ts` list of `CrudField`s, and a list component. The list opens `app-crud-form` (the generic add/edit form built from the fields) inside `app-modal`. Register the routes as children of `admin` in `app.routes.ts`, and add one entry to `sections`.
+- Reuse the shared building blocks in `src/app/shared/`: `CrudService` (calls `/api/admin/<resource>`, typed `Page<T>` for lists), `app-form-field` (label, projected input, error), `app-page-header` (title plus projected buttons), `app-pager`, `app-crud-form`, and `app-modal` (native `<dialog>`: show it with `@if` and it opens itself; Esc emits `closed`). Their styles, and those for tables, buttons and inputs, live in `src/styles.css`, not in component CSS.
 - `auth.interceptor.ts` adds the Bearer token to every request and sends you to `/login` on a 401. `auth.guard.ts` protects `/admin`.
 - Load data in `ngOnInit` behind `isPlatformBrowser`, because the server has no token. Don't use `afterNextRender` for fetching: in Angular 17 it runs outside the zone, so the view never updates.
 

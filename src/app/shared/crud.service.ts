@@ -6,7 +6,7 @@ import { Page } from './page';
 
 // Calls for one admin section at /api/admin/<resource>. Extend it once per section.
 export abstract class CrudService<T, TRequest> {
-  private http = inject(HttpClient);
+  protected http = inject(HttpClient);
   private url: string;
 
   constructor(resource: string) {

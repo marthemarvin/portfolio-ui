@@ -1,10 +1,12 @@
 import { Routes } from '@angular/router';
 import { authGuard } from './auth.guard';
+import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { AdminLayoutComponent } from './admin/admin-layout/admin-layout.component';
 import { CourseListComponent } from './admin/courses/course-list/course-list.component';
 
 export const routes: Routes = [
+  { path: '', component: HomeComponent, title: 'Marwan' },
   { path: 'login', component: LoginComponent, title: 'Sign in' },
   {
     path: 'admin',

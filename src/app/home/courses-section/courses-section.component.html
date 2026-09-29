@@ -1,0 +1,32 @@
+@if (error) {
+  <p class="form-error" role="alert">{{ error }}</p>
+} @else if (courses) {
+  @if (courses.length) {
+    <ul class="courses">
+      @for (course of courses; track course.id) {
+        <li>
+          @if (course.image) {
+            <img [src]="course.image" alt="">
+          }
+          <h3>
+            @if (course.link) {
+              <a [href]="course.link">{{ course.title }}</a>
+            } @else {
+              {{ course.title }}
+            }
+          </h3>
+          @if (course.author) {
+            <p class="author">{{ course.author }}</p>
+          }
+          @if (course.description) {
+            <p>{{ course.description }}</p>
+          }
+        </li>
+      }
+    </ul>
+  } @else {
+    <p>No courses yet.</p>
+  }
+} @else {
+  <p>Loading…</p>
+}
