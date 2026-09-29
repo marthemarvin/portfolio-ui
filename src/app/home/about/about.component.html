@@ -1,2 +1,37 @@
-<h1>Marwan Hussam</h1>
-<p>Software engineer</p>
+@if (about) {
+  @if (about.image) {
+    <img class="photo" [src]="about.image" alt="">
+  }
+  @if (about.fullName) {
+    <h1>{{ about.fullName }}</h1>
+  }
+  @if (about.headline) {
+    <p class="headline">{{ about.headline }}</p>
+  }
+  @if (about.location) {
+    <p class="location">{{ about.location }}</p>
+  }
+  @if (about.bio) {
+    <p class="bio">{{ about.bio }}</p>
+  }
+  <ul class="links">
+    @if (about.email) {
+      <li><a [href]="'mailto:' + about.email">Email</a></li>
+    }
+    @if (about.resumeLink) {
+      <li><a [href]="about.resumeLink">Résumé</a></li>
+    }
+    @if (about.githubLink) {
+      <li><a [href]="about.githubLink">GitHub</a></li>
+    }
+    @if (about.linkedinLink) {
+      <li><a [href]="about.linkedinLink">LinkedIn</a></li>
+    }
+  </ul>
+} @else if (notSetUp) {
+  <p>This page isn’t set up yet.</p>
+} @else if (error) {
+  <p class="form-error" role="alert">{{ error }}</p>
+} @else {
+  <p>Loading…</p>
+}

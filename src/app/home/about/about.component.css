@@ -1,10 +1,43 @@
+.photo {
+  display: block;
+  width: 7rem;
+  height: 7rem;
+  margin-bottom: 2rem;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
 h1 {
   font-size: clamp(2.25rem, 6vw, 3.5rem);
   line-height: 1.1;
 }
 
-p {
+.headline {
   margin: 0.75rem 0 0;
   color: var(--muted);
   font-size: 1.25rem;
+}
+
+.location {
+  margin: 0.5rem 0 0;
+  color: var(--muted);
+  font-size: var(--text-sm);
+}
+
+.bio {
+  margin: 2rem 0 0;
+  white-space: pre-line;
+}
+
+.links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.5rem;
+  margin: 2rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.links:empty {
+  display: none;
 }
