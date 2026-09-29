@@ -1,0 +1,243 @@
+/* Design tokens shared by every page. */
+:root {
+  --blush: #fbeff1;
+  --petal: #f4d6dc;
+  --field: #fffcfd;
+  --line: #e6c3cb;
+  --rosewood: #9e3b55;
+  --rosewood-dark: #832d45;
+  --ink: #3a1f27;
+  --mauve: #7a5c64;
+  --error: #a3243b;
+
+  --font-body: 'Onest', system-ui, sans-serif;
+
+  --text-sm: 0.875rem;
+  --text-base: 1.0625rem;
+  --text-xl: 2.125rem;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--blush);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  color: var(--rosewood);
+  text-underline-offset: 0.2em;
+}
+
+a:hover {
+  color: var(--rosewood-dark);
+}
+
+button,
+.button {
+  display: inline-block;
+  padding: 0.8rem 1.25rem;
+  border: 1px solid var(--rosewood);
+  border-radius: 10px;
+  background: var(--rosewood);
+  color: #fff;
+  font: inherit;
+  font-weight: 500;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 150ms ease, border-color 150ms ease;
+}
+
+button:hover:not(:disabled),
+.button:hover {
+  background: var(--rosewood-dark);
+  border-color: var(--rosewood-dark);
+}
+
+button:disabled {
+  opacity: 0.65;
+  cursor: progress;
+}
+
+button.secondary {
+  background: transparent;
+  color: var(--rosewood);
+}
+
+button.secondary:hover:not(:disabled) {
+  background: var(--petal);
+}
+
+/* A button that looks like a link, e.g. "Delete" next to "Edit". */
+button.link,
+button.link:hover:not(:disabled) {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--rosewood);
+  font-weight: 400;
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+h1 {
+  margin: 0;
+  font-size: var(--text-xl);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+/* Forms */
+.stack {
+  display: grid;
+  gap: 1.25rem;
+  max-width: 36rem;
+}
+
+.field {
+  display: grid;
+  gap: 0.375rem;
+}
+
+label {
+  font-size: var(--text-sm);
+  font-weight: 500;
+}
+
+input:not([type='checkbox']),
+textarea {
+  width: 100%;
+  padding: 0.75rem 0.875rem;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--field);
+  color: inherit;
+  font: inherit;
+}
+
+textarea {
+  resize: vertical;
+}
+
+[aria-invalid='true'] {
+  border-color: var(--error);
+}
+
+.checkbox {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: var(--text-base);
+  font-weight: 400;
+}
+
+.checkbox input {
+  width: 1.125rem;
+  height: 1.125rem;
+  accent-color: var(--rosewood);
+}
+
+.field-error {
+  margin: 0;
+  color: var(--error);
+  font-size: var(--text-sm);
+}
+
+.form-error {
+  margin: 0 0 1.25rem;
+  padding: 0.75rem 0.875rem;
+  border-left: 3px solid var(--error);
+  background: var(--petal);
+  font-size: var(--text-sm);
+}
+
+.stack .form-error {
+  margin: 0;
+}
+
+.form-actions {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+/* Page header, table, pager */
+.page-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th,
+td {
+  padding: 0.75rem 0.5rem;
+  border-bottom: 1px solid var(--line);
+  text-align: left;
+}
+
+th {
+  color: var(--mauve);
+  font-size: var(--text-sm);
+  font-weight: 500;
+}
+
+td.actions {
+  text-align: right;
+  white-space: nowrap;
+}
+
+td.actions > * + * {
+  margin-left: 1rem;
+}
+
+.pager {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 1rem;
+  margin-top: 1.5rem;
+  color: var(--mauve);
+  font-size: var(--text-sm);
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+input:focus {
+  outline: none;
+}
+
+:focus-visible,
+input:focus-visible {
+  outline: 3px solid var(--rosewood);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+  }
+}

@@ -1,0 +1,7 @@
+<div class="field">
+  <label [for]="fieldId">{{ label }}</label>
+  <ng-content />
+  @if (error) {
+    <p class="field-error" [id]="fieldId + '-error'">{{ error }}</p>
+  }
+</div>

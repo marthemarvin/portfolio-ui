@@ -1,0 +1,12 @@
+<div class="admin">
+  <nav class="sidebar" aria-label="Sections">
+    @for (section of sections; track section.path) {
+      <a [routerLink]="section.path" routerLinkActive="active" ariaCurrentWhenActive="page">{{ section.label }}</a>
+    }
+    <button type="button" class="secondary sign-out" (click)="signOut()">Sign out</button>
+  </nav>
+
+  <main class="content">
+    <router-outlet />
+  </main>
+</div>

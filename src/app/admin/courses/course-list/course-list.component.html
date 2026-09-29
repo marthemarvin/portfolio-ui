@@ -1,0 +1,40 @@
+<app-page-header title="Courses">
+  <a class="button" routerLink="new">Add course</a>
+</app-page-header>
+
+@if (error) {
+  <p class="form-error" role="alert">{{ error }}</p>
+}
+
+@if (page) {
+  @if (page.content.length) {
+    <table>
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>Author</th>
+          <th>Status</th>
+          <th><span class="visually-hidden">Actions</span></th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (course of page.content; track course.id) {
+          <tr>
+            <td>{{ course.title }}</td>
+            <td>{{ course.author }}</td>
+            <td>{{ course.isActive ? 'Active' : 'Hidden' }}</td>
+            <td class="actions">
+              <a [routerLink]="[course.id]">Edit</a>
+              <button type="button" class="link" (click)="remove(course)">Delete</button>
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+    <app-pager [page]="page.number" [totalPages]="page.totalPages" (pageChange)="load($event)" />
+  } @else {
+    <p>No courses yet.</p>
+  }
+} @else if (!error) {
+  <p>Loading…</p>
+}

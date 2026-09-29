@@ -1,0 +1,37 @@
+<app-page-header [title]="id ? 'Edit course' : 'Add course'" />
+
+<form class="stack" [formGroup]="form" (ngSubmit)="save()" novalidate>
+  <app-form-field label="Title" fieldId="title" [error]="titleError()">
+    <input id="title" formControlName="title" [attr.aria-invalid]="!!titleError()" aria-describedby="title-error">
+  </app-form-field>
+
+  <app-form-field label="Author" fieldId="author">
+    <input id="author" formControlName="author">
+  </app-form-field>
+
+  <app-form-field label="Description" fieldId="description">
+    <textarea id="description" formControlName="description" rows="4"></textarea>
+  </app-form-field>
+
+  <app-form-field label="Link" fieldId="link">
+    <input id="link" type="url" formControlName="link" placeholder="https://">
+  </app-form-field>
+
+  <app-form-field label="Image URL" fieldId="image">
+    <input id="image" type="url" formControlName="image" placeholder="https://">
+  </app-form-field>
+
+  <label class="checkbox">
+    <input type="checkbox" formControlName="isActive">
+    Show on portfolio
+  </label>
+
+  @if (error) {
+    <p class="form-error" role="alert">{{ error }}</p>
+  }
+
+  <div class="form-actions">
+    <button type="submit" [disabled]="saving">{{ saving ? 'Saving…' : 'Save course' }}</button>
+    <a routerLink="/admin/courses">Cancel</a>
+  </div>
+</form>
