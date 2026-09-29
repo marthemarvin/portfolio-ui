@@ -181,6 +181,12 @@ textarea {
   font-size: var(--text-sm);
 }
 
+.saved {
+  margin: 1rem 0 0;
+  color: var(--muted);
+  font-size: var(--text-sm);
+}
+
 .stack .form-error {
   margin: 0;
 }

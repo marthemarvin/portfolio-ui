@@ -41,7 +41,7 @@
 
 @if (formOpen) {
   <app-modal [title]="selected ? 'Edit course' : 'Add course'" (closed)="closeForm()">
-    <app-crud-form [fields]="fields" [service]="courses" itemName="course" [item]="selected"
+    <app-crud-form [fields]="fields" [value]="selected" [saveWith]="saveCourse" saveLabel="Save course"
                    (saved)="onSaved()" (cancelled)="closeForm()" />
   </app-modal>
 }

@@ -5,7 +5,7 @@ import { ModalComponent } from '../../../shared/modal/modal.component';
 import { PageHeaderComponent } from '../../../shared/page-header/page-header.component';
 import { PagerComponent } from '../../../shared/pager/pager.component';
 import { Page } from '../../../shared/page';
-import { Course } from '../course';
+import { Course, CourseRequest } from '../course';
 import { courseFields } from '../course-fields';
 import { CourseService } from '../course.service';
 
@@ -16,7 +16,7 @@ import { CourseService } from '../course.service';
   templateUrl: './course-list.component.html'
 })
 export class CourseListComponent implements OnInit {
-  protected courses = inject(CourseService);
+  private courses = inject(CourseService);
   protected fields = courseFields;
   private isBrowser = isPlatformBrowser(inject(PLATFORM_ID));
 
@@ -46,6 +46,12 @@ export class CourseListComponent implements OnInit {
     this.selected = course;
     this.formOpen = true;
   }
+
+  // Passed to the form: update the selected course, or create a new one.
+  saveCourse = (body: Record<string, unknown>) => {
+    const course = body as CourseRequest;
+    return this.selected ? this.courses.update(this.selected.id, course) : this.courses.create(course);
+  };
 
   closeForm(): void {
     this.formOpen = false;

@@ -7,6 +7,7 @@ import { CourseDetailComponent } from './home/course-detail/course-detail.compon
 import { LoginComponent } from './login/login.component';
 import { AdminLayoutComponent } from './admin/admin-layout/admin-layout.component';
 import { CourseListComponent } from './admin/courses/course-list/course-list.component';
+import { AboutPageComponent } from './admin/about/about-page.component';
 
 export const routes: Routes = [
   {
@@ -24,7 +25,8 @@ export const routes: Routes = [
     component: AdminLayoutComponent,
     canActivate: [authGuard],
     children: [
-      { path: '', redirectTo: 'courses', pathMatch: 'full' },
+      { path: '', redirectTo: 'about', pathMatch: 'full' },
+      { path: 'about', component: AboutPageComponent, title: 'About' },
       { path: 'courses', component: CourseListComponent, title: 'Courses' }
     ]
   }

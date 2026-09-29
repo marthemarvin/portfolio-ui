@@ -1,19 +1,19 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { CrudService } from '../crud.service';
+import { Observable } from 'rxjs';
 import { FormFieldComponent } from '../form-field/form-field.component';
 
 // One field of the form. The form is built from a list of these.
 export interface CrudField {
   name: string;
   label: string;
-  type: 'text' | 'textarea' | 'url' | 'checkbox';
+  type: 'text' | 'textarea' | 'url' | 'email' | 'checkbox';
   required?: boolean;
   default?: string | boolean;
 }
 
-// Add form (no `item`) or edit form (`item` given) for any admin section.
-// Saves through the section's CrudService, then emits `saved`.
+// A form built from a list of fields, for any admin section.
+// `value` fills it in (leave it out for an empty form). `saveWith` does the API call; then `saved` is emitted.
 @Component({
   selector: 'app-crud-form',
   standalone: true,
@@ -22,9 +22,10 @@ export interface CrudField {
 })
 export class CrudFormComponent implements OnInit {
   @Input({ required: true }) fields: CrudField[] = [];
-  @Input({ required: true }) service!: CrudService<unknown, unknown>;
-  @Input({ required: true }) itemName = '';
-  @Input() item: { id: number } | null = null;
+  @Input({ required: true }) saveWith!: (body: Record<string, unknown>) => Observable<unknown>;
+  @Input({ required: true }) saveLabel = '';
+  @Input() value: object | null = null;
+  @Input() showCancel = true;
   @Output() saved = new EventEmitter<void>();
   @Output() cancelled = new EventEmitter<void>();
 
@@ -33,7 +34,7 @@ export class CrudFormComponent implements OnInit {
   error = '';
 
   ngOnInit(): void {
-    const values = (this.item ?? {}) as Record<string, unknown>;
+    const values = (this.value ?? {}) as Record<string, unknown>;
     for (const field of this.fields) {
       const empty = field.type === 'checkbox' ? false : '';
       const value = values[field.name] ?? field.default ?? empty;
@@ -49,14 +50,14 @@ export class CrudFormComponent implements OnInit {
 
     this.saving = true;
     this.error = '';
-    const body = this.form.getRawValue();
-    const request = this.item ? this.service.update(this.item.id, body) : this.service.create(body);
-
-    request.subscribe({
-      next: () => this.saved.emit(),
+    this.saveWith(this.form.getRawValue()).subscribe({
+      next: () => {
+        this.saving = false;
+        this.saved.emit();
+      },
       error: () => {
         this.saving = false;
-        this.error = `Couldn’t save the ${this.itemName}. Try again.`;
+        this.error = 'Couldn’t save. Try again.';
       }
     });
   }

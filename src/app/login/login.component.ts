@@ -35,7 +35,7 @@ export class LoginComponent {
     const { email, password } = this.form.getRawValue();
 
     this.auth.login(email, password).subscribe({
-      next: () => this.router.navigate(['/admin/courses']),
+      next: () => this.router.navigate(['/admin']),
       error: (err: HttpErrorResponse) => {
         this.submitting = false;
         this.error = err.status === 401

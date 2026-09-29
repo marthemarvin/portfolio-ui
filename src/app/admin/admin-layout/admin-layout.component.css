@@ -10,6 +10,10 @@
   gap: 0.25rem;
   width: 14rem;
   flex-shrink: 0;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  height: 100dvh;
   padding: 2rem 1rem;
   background: var(--surface);
 }
@@ -49,7 +53,9 @@
   .sidebar {
     flex-direction: row;
     align-items: center;
+    position: static;
     width: auto;
+    height: auto;
     padding: 0.75rem 1rem;
   }
 

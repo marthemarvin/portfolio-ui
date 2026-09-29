@@ -15,6 +15,7 @@ export class AdminLayoutComponent {
 
   // Add a line here for each new section.
   sections = [
+    { label: 'About', path: 'about' },
     { label: 'Courses', path: 'courses' }
   ];
 
