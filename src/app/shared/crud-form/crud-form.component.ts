@@ -7,7 +7,7 @@ import { FormFieldComponent } from '../form-field/form-field.component';
 export interface CrudField {
   name: string;
   label: string;
-  type: 'text' | 'textarea' | 'url' | 'email' | 'checkbox';
+  type: 'text' | 'textarea' | 'url' | 'email' | 'date' | 'checkbox';
   required?: boolean;
   default?: string | boolean;
 }
@@ -50,7 +50,15 @@ export class CrudFormComponent implements OnInit {
 
     this.saving = true;
     this.error = '';
-    this.saveWith(this.form.getRawValue()).subscribe({
+    const body = this.form.getRawValue();
+    // An empty date field means "no date", which the backend expects as null.
+    for (const field of this.fields) {
+      if (field.type === 'date' && !body[field.name]) {
+        body[field.name] = null;
+      }
+    }
+
+    this.saveWith(body).subscribe({
       next: () => {
         this.saving = false;
         this.saved.emit();

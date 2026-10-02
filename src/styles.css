@@ -218,6 +218,55 @@ dialog h2 {
   font-weight: 600;
 }
 
+/* Lists on the public pages (courses, experience) */
+.entry-list {
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid var(--line);
+  list-style: none;
+}
+
+.entry-list > li {
+  display: flex;
+  gap: 1.25rem;
+  padding: 1.25rem 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.entry-list .text {
+  flex: 1;
+  min-width: 0;
+}
+
+.entry-list .heading {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.25rem 1rem;
+}
+
+.entry-list h2 {
+  margin: 0;
+  font-size: 1.1875rem;
+  font-weight: 600;
+}
+
+.entry-list h2 a {
+  color: inherit;
+}
+
+.entry-list .meta {
+  color: var(--muted);
+  font-size: var(--text-sm);
+}
+
+@media (max-width: 520px) {
+  .entry-list > li {
+    flex-direction: column;
+  }
+}
+
 /* Page header, table, pager */
 .page-header {
   display: flex;

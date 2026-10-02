@@ -1,0 +1,37 @@
+<app-page-header title="Experience" />
+
+@if (error) {
+  <p class="form-error" role="alert">{{ error }}</p>
+} @else if (page) {
+  @if (page.content.length) {
+    <ul class="entry-list">
+      @for (experience of page.content; track experience.id) {
+        <li>
+          @if (experience.companyLogo) {
+            <img class="logo" [src]="experience.companyLogo" alt="">
+          }
+          <div class="text">
+            <div class="heading">
+              <h2>{{ experience.position }}</h2>
+              <span class="meta">
+                {{ experience.startDate | date: 'MMM y' }} –
+                {{ experience.endDate ? (experience.endDate | date: 'MMM y') : 'Present' }}
+              </span>
+            </div>
+            <p class="company">
+              @if (experience.companyLink) {<a [href]="experience.companyLink">{{ experience.companyName }}</a>} @else {<span>{{ experience.companyName }}</span>}@if (experience.location) {<span>, {{ experience.location }}</span>}
+            </p>
+            @if (experience.description) {
+              <p class="description">{{ experience.description }}</p>
+            }
+          </div>
+        </li>
+      }
+    </ul>
+    <app-pager [page]="page.number" [totalPages]="page.totalPages" (pageChange)="load($event)" />
+  } @else {
+    <p>No experience yet.</p>
+  }
+} @else {
+  <p>Loading…</p>
+}

@@ -4,7 +4,7 @@
   <p class="form-error" role="alert">{{ error }}</p>
 } @else if (courses) {
   @if (courses.length) {
-    <ul class="courses">
+    <ul class="entry-list">
       @for (course of courses; track course.id) {
         <li>
           @if (course.image) {
@@ -16,7 +16,7 @@
                 <a [routerLink]="['/courses', course.id]">{{ course.title }}</a>
               </h2>
               @if (course.author) {
-                <span class="author">{{ course.author }}</span>
+                <span class="meta">{{ course.author }}</span>
               }
             </div>
             @if (course.description) {

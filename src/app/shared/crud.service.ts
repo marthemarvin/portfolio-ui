@@ -9,12 +9,13 @@ export abstract class CrudService<T, TRequest> {
   protected http = inject(HttpClient);
   private url: string;
 
-  constructor(resource: string) {
+  // `sort` is Spring's sort parameter, e.g. 'startDate,desc'.
+  constructor(resource: string, private sort = 'createdAt,desc') {
     this.url = `${environment.apiUrl}/api/admin/${resource}`;
   }
 
   list(page = 0, size = 20): Observable<Page<T>> {
-    return this.http.get<Page<T>>(this.url, { params: { page, size, sort: 'createdAt,desc' } });
+    return this.http.get<Page<T>>(this.url, { params: { page, size, sort: this.sort } });
   }
 
   get(id: number): Observable<T> {

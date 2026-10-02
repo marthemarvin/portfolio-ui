@@ -1,79 +1,16 @@
-import { Component, OnInit, PLATFORM_ID, inject } from '@angular/core';
-import { isPlatformBrowser } from '@angular/common';
-import { CrudFormComponent } from '../../../shared/crud-form/crud-form.component';
-import { ModalComponent } from '../../../shared/modal/modal.component';
-import { PageHeaderComponent } from '../../../shared/page-header/page-header.component';
-import { PagerComponent } from '../../../shared/pager/pager.component';
-import { Page } from '../../../shared/page';
-import { Course, CourseRequest } from '../course';
-import { courseFields } from '../course-fields';
+import { Component, inject } from '@angular/core';
+import { CrudPageComponent } from '../../../shared/crud-page/crud-page.component';
+import { courseColumns, courseFields } from '../course-fields';
 import { CourseService } from '../course.service';
 
 @Component({
   selector: 'app-course-list',
   standalone: true,
-  imports: [PageHeaderComponent, PagerComponent, ModalComponent, CrudFormComponent],
+  imports: [CrudPageComponent],
   templateUrl: './course-list.component.html'
 })
-export class CourseListComponent implements OnInit {
-  private courses = inject(CourseService);
-  protected fields = courseFields;
-  private isBrowser = isPlatformBrowser(inject(PLATFORM_ID));
-
-  page: Page<Course> | null = null;
-  error = '';
-
-  // The pop-up is open while formOpen is true; `selected` is the course being edited, or null when adding.
-  formOpen = false;
-  selected: Course | null = null;
-
-  ngOnInit(): void {
-    // Load in the browser only; the server has no token.
-    if (this.isBrowser) {
-      this.load(0);
-    }
-  }
-
-  load(pageNumber: number): void {
-    this.error = '';
-    this.courses.list(pageNumber).subscribe({
-      next: page => this.page = page,
-      error: () => this.error = 'Couldn’t load courses. Refresh the page to try again.'
-    });
-  }
-
-  openForm(course: Course | null): void {
-    this.selected = course;
-    this.formOpen = true;
-  }
-
-  // Passed to the form: update the selected course, or create a new one.
-  saveCourse = (body: Record<string, unknown>) => {
-    const course = body as CourseRequest;
-    return this.selected ? this.courses.update(this.selected.id, course) : this.courses.create(course);
-  };
-
-  closeForm(): void {
-    this.formOpen = false;
-  }
-
-  onSaved(): void {
-    this.closeForm();
-    // New courses appear first, so go back to page 1 after adding.
-    this.load(this.selected ? this.page?.number ?? 0 : 0);
-  }
-
-  remove(course: Course): void {
-    if (!confirm(`Delete “${course.title}”?`)) {
-      return;
-    }
-    this.courses.delete(course.id).subscribe({
-      next: () => {
-        const current = this.page!;
-        // Step back a page when the last course on it was deleted.
-        this.load(current.content.length === 1 && current.number > 0 ? current.number - 1 : current.number);
-      },
-      error: () => this.error = `Couldn’t delete “${course.title}”. Try again.`
-    });
-  }
+export class CourseListComponent {
+  courses = inject(CourseService);
+  fields = courseFields;
+  columns = courseColumns;
 }

@@ -13,6 +13,7 @@ export class HomeComponent {
   // Add a line here for each new page, and a route in app.routes.ts.
   pages = [
     { label: 'About', path: '/' },
+    { label: 'Experience', path: '/experience' },
     { label: 'Courses', path: '/courses' }
   ];
 }

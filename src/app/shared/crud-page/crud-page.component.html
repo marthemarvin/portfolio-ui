@@ -1,0 +1,47 @@
+<app-page-header [title]="title">
+  <button type="button" (click)="openForm(null)">Add {{ itemName }}</button>
+</app-page-header>
+
+@if (error) {
+  <p class="form-error" role="alert">{{ error }}</p>
+}
+
+@if (page) {
+  @if (page.content.length) {
+    <table>
+      <thead>
+        <tr>
+          @for (column of columns; track column.label) {
+            <th>{{ column.label }}</th>
+          }
+          <th><span class="visually-hidden">Actions</span></th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (item of page.content; track item.id) {
+          <tr>
+            @for (column of columns; track column.label) {
+              <td>{{ column.value(item) }}</td>
+            }
+            <td class="actions">
+              <button type="button" class="link" (click)="openForm(item)">Edit</button>
+              <button type="button" class="link" (click)="remove(item)">Delete</button>
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+    <app-pager [page]="page.number" [totalPages]="page.totalPages" (pageChange)="load($event)" />
+  } @else {
+    <p>No {{ title.toLowerCase() }} yet.</p>
+  }
+} @else if (!error) {
+  <p>Loading…</p>
+}
+
+@if (formOpen) {
+  <app-modal [title]="(selected ? 'Edit ' : 'Add ') + itemName" (closed)="closeForm()">
+    <app-crud-form [fields]="fields" [value]="selected" [saveWith]="saveItem" [saveLabel]="'Save ' + itemName"
+                   (saved)="onSaved()" (cancelled)="closeForm()" />
+  </app-modal>
+}
