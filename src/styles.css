@@ -55,7 +55,9 @@ body {
 
 a {
   color: var(--accent);
-  text-underline-offset: 0.2em;
+  text-underline-offset: 0.3em;
+  /* Sit the underline below letters like y, g and p, and never break it around them. */
+  text-decoration-skip-ink: none;
 }
 
 a:hover {
@@ -107,7 +109,8 @@ button.link:hover:not(:disabled) {
   color: var(--accent);
   font-weight: 400;
   text-decoration: underline;
-  text-underline-offset: 0.2em;
+  text-underline-offset: 0.3em;
+  text-decoration-skip-ink: none;
 }
 
 h1 {
