@@ -5,7 +5,7 @@ export const aboutFields: CrudField[] = [
   { name: 'fullName', label: 'Full name', type: 'text' },
   { name: 'headline', label: 'Headline', type: 'text' },
   { name: 'bio', label: 'Bio', type: 'textarea' },
-  { name: 'image', label: 'Photo URL', type: 'url' },
+  { name: 'image', label: 'Photo', type: 'image' },
   { name: 'location', label: 'Location', type: 'text' },
   { name: 'email', label: 'Email', type: 'email' },
   { name: 'resumeLink', label: 'Résumé link', type: 'url' },

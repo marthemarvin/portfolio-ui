@@ -10,7 +10,7 @@ export const certificateFields: CrudField[] = [
   { name: 'expiryDate', label: 'Expiry date (leave empty if it doesn’t expire)', type: 'date' },
   { name: 'credentialId', label: 'Credential ID', type: 'text' },
   { name: 'credentialUrl', label: 'Credential URL', type: 'url' },
-  { name: 'image', label: 'Badge image URL', type: 'url' },
+  { name: 'image', label: 'Badge image', type: 'image' },
   { name: 'isActive', label: 'Show on portfolio', type: 'checkbox', default: true }
 ];
 

@@ -10,5 +10,5 @@ export interface Course {
   updatedAt: string;
 }
 
-// What the backend accepts when creating or updating a course.
-export type CourseRequest = Omit<Course, 'id' | 'createdAt' | 'updatedAt'>;
+// What the backend accepts when creating or updating. A new image goes in the *Base64 field as a data URI; a course.
+export type CourseRequest = Omit<Course, 'id' | 'createdAt' | 'updatedAt'> & { imageBase64: string | null };

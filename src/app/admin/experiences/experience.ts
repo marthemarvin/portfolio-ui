@@ -13,5 +13,5 @@ export interface Experience {
   updatedAt: string;
 }
 
-// What the backend accepts when creating or updating an experience.
-export type ExperienceRequest = Omit<Experience, 'id' | 'createdAt' | 'updatedAt'>;
+// What the backend accepts when creating or updating. A new image goes in the *Base64 field as a data URI; an experience.
+export type ExperienceRequest = Omit<Experience, 'id' | 'createdAt' | 'updatedAt'> & { companyLogoBase64: string | null };

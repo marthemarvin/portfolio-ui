@@ -12,5 +12,5 @@ export interface Certificate {
   updatedAt: string;
 }
 
-// What the backend accepts when creating or updating a certificate.
-export type CertificateRequest = Omit<Certificate, 'id' | 'createdAt' | 'updatedAt'>;
+// What the backend accepts when creating or updating. A new image goes in the *Base64 field as a data URI; a certificate.
+export type CertificateRequest = Omit<Certificate, 'id' | 'createdAt' | 'updatedAt'> & { imageBase64: string | null };

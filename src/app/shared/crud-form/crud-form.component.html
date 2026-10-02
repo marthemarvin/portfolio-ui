@@ -5,6 +5,19 @@
         <input type="checkbox" [formControlName]="field.name">
         {{ field.label }}
       </label>
+    } @else if (field.type === 'image') {
+      <app-form-field [label]="field.label" [fieldId]="field.name" [error]="imageErrors[field.name] || null">
+        @if (imagePreview(field); as preview) {
+          <img class="image-preview" [src]="preview" alt="">
+        }
+        <div class="image-actions">
+          <input #file [id]="field.name" type="file" accept="image/*" (change)="chooseImage(field, $event)"
+                 [attr.aria-describedby]="field.name + '-error'">
+          @if (imagePreview(field)) {
+            <button type="button" class="link" (click)="removeImage(field, file)">Remove image</button>
+          }
+        </div>
+      </app-form-field>
     } @else {
       <app-form-field [label]="field.label" [fieldId]="field.name" [error]="errorFor(field)">
         @if (field.type === 'textarea') {

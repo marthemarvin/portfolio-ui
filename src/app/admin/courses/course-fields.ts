@@ -8,7 +8,7 @@ export const courseFields: CrudField[] = [
   { name: 'author', label: 'Author', type: 'text' },
   { name: 'description', label: 'Description', type: 'textarea' },
   { name: 'link', label: 'Link', type: 'url' },
-  { name: 'image', label: 'Image URL', type: 'url' },
+  { name: 'image', label: 'Image', type: 'image' },
   { name: 'isActive', label: 'Show on portfolio', type: 'checkbox', default: true }
 ];
 

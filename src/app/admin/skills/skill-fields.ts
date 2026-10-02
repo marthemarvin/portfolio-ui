@@ -6,7 +6,7 @@ import { Skill } from './skill';
 export const skillFields: CrudField[] = [
   { name: 'name', label: 'Name', type: 'text', required: true },
   { name: 'category', label: 'Category', type: 'text', required: true, placeholder: 'e.g. Backend, Database' },
-  { name: 'icon', label: 'Icon URL', type: 'url' },
+  { name: 'icon', label: 'Icon', type: 'image' },
   { name: 'displayOrder', label: 'Order in its category (lowest first)', type: 'number' },
   { name: 'isActive', label: 'Show on portfolio', type: 'checkbox', default: true }
 ];
