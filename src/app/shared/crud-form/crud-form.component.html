@@ -11,7 +11,7 @@
           <textarea [id]="field.name" [formControlName]="field.name" rows="4"></textarea>
         } @else {
           <input [id]="field.name" [type]="field.type" [formControlName]="field.name"
-                 [placeholder]="field.type === 'url' ? 'https://' : ''"
+                 [placeholder]="field.placeholder ?? (field.type === 'url' ? 'https://' : '')"
                  [attr.aria-invalid]="!!errorFor(field)" [attr.aria-describedby]="field.name + '-error'">
         }
       </app-form-field>

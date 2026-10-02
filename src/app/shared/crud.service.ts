@@ -9,8 +9,8 @@ export abstract class CrudService<T, TRequest> {
   protected http = inject(HttpClient);
   private url: string;
 
-  // `sort` is Spring's sort parameter, e.g. 'startDate,desc'.
-  constructor(resource: string, private sort = 'createdAt,desc') {
+  // `sort` is Spring's sort parameter, e.g. 'startDate,desc', or a list of them.
+  constructor(resource: string, private sort: string | string[] = 'createdAt,desc') {
     this.url = `${environment.apiUrl}/api/admin/${resource}`;
   }
 

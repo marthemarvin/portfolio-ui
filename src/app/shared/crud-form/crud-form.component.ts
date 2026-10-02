@@ -7,9 +7,10 @@ import { FormFieldComponent } from '../form-field/form-field.component';
 export interface CrudField {
   name: string;
   label: string;
-  type: 'text' | 'textarea' | 'url' | 'email' | 'date' | 'checkbox';
+  type: 'text' | 'textarea' | 'url' | 'email' | 'date' | 'number' | 'checkbox';
   required?: boolean;
   default?: string | boolean;
+  placeholder?: string;
 }
 
 // A form built from a list of fields, for any admin section.
@@ -51,10 +52,13 @@ export class CrudFormComponent implements OnInit {
     this.saving = true;
     this.error = '';
     const body = this.form.getRawValue();
-    // An empty date field means "no date", which the backend expects as null.
+    // Empty date and number fields are sent as null; numbers are sent as numbers, not text.
     for (const field of this.fields) {
-      if (field.type === 'date' && !body[field.name]) {
+      const value = body[field.name];
+      if ((field.type === 'date' || field.type === 'number') && (value === '' || value === null)) {
         body[field.name] = null;
+      } else if (field.type === 'number') {
+        body[field.name] = Number(value);
       }
     }
 

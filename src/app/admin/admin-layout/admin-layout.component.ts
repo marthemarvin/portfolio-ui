@@ -17,6 +17,7 @@ export class AdminLayoutComponent {
   sections = [
     { label: 'About', path: 'about' },
     { label: 'Experience', path: 'experience' },
+    { label: 'Skills', path: 'skills' },
     { label: 'Certificates', path: 'certificates' },
     { label: 'Courses', path: 'courses' }
   ];
