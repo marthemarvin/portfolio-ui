@@ -1,0 +1,27 @@
+.badge {
+  flex-shrink: 0;
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: 10px;
+  background: var(--field);
+  object-fit: contain;
+}
+
+.issuer {
+  margin: 0.25rem 0 0;
+}
+
+.details {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 1.25rem;
+  margin: 0.5rem 0 0;
+  color: var(--muted);
+  font-size: var(--text-sm);
+}
+
+.credential {
+  display: inline-block;
+  margin-top: 0.75rem;
+  font-size: var(--text-sm);
+}

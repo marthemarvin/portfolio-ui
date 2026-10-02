@@ -1,0 +1,38 @@
+<app-page-header title="Certificates" />
+
+@if (error) {
+  <p class="form-error" role="alert">{{ error }}</p>
+} @else if (page) {
+  @if (page.content.length) {
+    <ul class="entry-list">
+      @for (certificate of page.content; track certificate.id) {
+        <li>
+          @if (certificate.image) {
+            <img class="badge" [src]="certificate.image" alt="">
+          }
+          <div class="text">
+            <div class="heading">
+              <h2>{{ certificate.name }}</h2>
+              <span class="meta">Issued {{ certificate.issueDate | date: 'MMM y' }}</span>
+            </div>
+            <p class="issuer">{{ certificate.issuer }}</p>
+            @if (certificate.expiryDate || certificate.credentialId) {
+              <p class="details">
+                @if (certificate.expiryDate) {<span>Expires {{ certificate.expiryDate | date: 'MMM y' }}</span>}
+                @if (certificate.credentialId) {<span>Credential ID {{ certificate.credentialId }}</span>}
+              </p>
+            }
+            @if (certificate.credentialUrl) {
+              <a class="credential" [href]="certificate.credentialUrl">Show credential</a>
+            }
+          </div>
+        </li>
+      }
+    </ul>
+    <app-pager [page]="page.number" [totalPages]="page.totalPages" (pageChange)="load($event)" />
+  } @else {
+    <p>No certificates yet.</p>
+  }
+} @else {
+  <p>Loading…</p>
+}

@@ -14,6 +14,7 @@ export class HomeComponent {
   pages = [
     { label: 'About', path: '/' },
     { label: 'Experience', path: '/experience' },
+    { label: 'Certificates', path: '/certificates' },
     { label: 'Courses', path: '/courses' }
   ];
 }
