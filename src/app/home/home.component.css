@@ -16,16 +16,21 @@ nav {
 }
 
 nav a {
+  padding-bottom: 0.25rem;
+  border-bottom: 2px solid transparent;
   color: var(--muted);
   text-decoration: none;
 }
 
-nav a:hover,
-nav a.active {
+nav a:hover {
+  border-bottom-color: var(--line);
   color: var(--ink);
 }
 
+/* The page you are on: dark text with a navy bar underneath. */
 nav a.active {
+  border-bottom-color: var(--accent);
+  color: var(--ink);
   font-weight: 500;
 }
 
