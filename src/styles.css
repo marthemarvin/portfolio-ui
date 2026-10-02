@@ -53,11 +53,10 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+/* Links have no underline; the accent colour shows they can be clicked. */
 a {
   color: var(--accent);
-  text-underline-offset: 0.3em;
-  /* Sit the underline below letters like y, g and p, and never break it around them. */
-  text-decoration-skip-ink: none;
+  text-decoration: none;
 }
 
 a:hover {
@@ -108,9 +107,7 @@ button.link:hover:not(:disabled) {
   background: none;
   color: var(--accent);
   font-weight: 400;
-  text-decoration: underline;
-  text-underline-offset: 0.3em;
-  text-decoration-skip-ink: none;
+  text-decoration: none;
 }
 
 h1 {
@@ -278,7 +275,7 @@ dialog h2 {
 }
 
 .entry-list h2 a {
-  color: inherit;
+  color: var(--accent);
 }
 
 .entry-list .meta {
