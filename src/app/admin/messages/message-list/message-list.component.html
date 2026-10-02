@@ -1,0 +1,54 @@
+<app-page-header title="Messages" />
+
+@if (error) {
+  <p class="form-error" role="alert">{{ error }}</p>
+}
+
+@if (page) {
+  @if (page.content.length) {
+    <table>
+      <thead>
+        <tr>
+          <th>From</th>
+          <th>Subject</th>
+          <th>Received</th>
+          <th>Status</th>
+          <th><span class="visually-hidden">Actions</span></th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (message of page.content; track message.id) {
+          <tr [class.unread]="!message.isRead">
+            <td>{{ message.name }}</td>
+            <td>{{ message.subject }}</td>
+            <td>{{ message.createdAt | date: 'd MMM y, HH:mm' }}</td>
+            <td>{{ message.isRead ? 'Read' : 'New' }}</td>
+            <td class="actions">
+              <button type="button" class="link" (click)="open(message)">Open</button>
+              <button type="button" class="link" (click)="remove(message)">Delete</button>
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+    <app-pager [page]="page.number" [totalPages]="page.totalPages" (pageChange)="load($event)" />
+  } @else {
+    <p>No messages yet.</p>
+  }
+} @else if (!error) {
+  <p>Loading…</p>
+}
+
+@if (opened) {
+  <app-modal [title]="opened.subject || 'Message'" (closed)="opened = null">
+    <p class="from">
+      <strong>{{ opened.name }}</strong> <a [href]="'mailto:' + opened.email">{{ opened.email }}</a>
+    </p>
+    <p class="received">{{ opened.createdAt | date: 'd MMM y, HH:mm' }}</p>
+    <p class="body">{{ opened.message }}</p>
+    <div class="form-actions">
+      <a class="button" [href]="replyLink(opened)">Reply by email</a>
+      <button type="button" class="secondary" (click)="opened = null">Close</button>
+    </div>
+  </app-modal>
+}

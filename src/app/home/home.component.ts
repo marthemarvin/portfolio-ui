@@ -16,6 +16,7 @@ export class HomeComponent {
     { label: 'Experience', path: '/experience' },
     { label: 'Skills', path: '/skills' },
     { label: 'Certificates', path: '/certificates' },
-    { label: 'Courses', path: '/courses' }
+    { label: 'Courses', path: '/courses' },
+    { label: 'Contact', path: '/contact' }
   ];
 }

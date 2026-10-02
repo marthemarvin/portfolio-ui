@@ -19,7 +19,8 @@ export class AdminLayoutComponent {
     { label: 'Experience', path: 'experience' },
     { label: 'Skills', path: 'skills' },
     { label: 'Certificates', path: 'certificates' },
-    { label: 'Courses', path: 'courses' }
+    { label: 'Courses', path: 'courses' },
+    { label: 'Messages', path: 'messages' }
   ];
 
   signOut(): void {

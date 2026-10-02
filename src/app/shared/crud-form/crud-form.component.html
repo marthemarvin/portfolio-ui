@@ -8,7 +8,8 @@
     } @else {
       <app-form-field [label]="field.label" [fieldId]="field.name" [error]="errorFor(field)">
         @if (field.type === 'textarea') {
-          <textarea [id]="field.name" [formControlName]="field.name" rows="4"></textarea>
+          <textarea [id]="field.name" [formControlName]="field.name" rows="4"
+                    [attr.aria-invalid]="!!errorFor(field)" [attr.aria-describedby]="field.name + '-error'"></textarea>
         } @else {
           <input [id]="field.name" [type]="field.type" [formControlName]="field.name"
                  [placeholder]="field.placeholder ?? (field.type === 'url' ? 'https://' : '')"
@@ -23,7 +24,7 @@
   }
 
   <div class="form-actions">
-    <button type="submit" [disabled]="saving">{{ saving ? 'Saving…' : saveLabel }}</button>
+    <button type="submit" [disabled]="saving">{{ saving ? busyLabel : saveLabel }}</button>
     @if (showCancel) {
       <button type="button" class="secondary" (click)="cancelled.emit()">Cancel</button>
     }

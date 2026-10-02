@@ -1,0 +1,8 @@
+<app-page-header title="Contact" />
+
+@if (sent) {
+  <p role="status">Message sent. Thanks for getting in touch.</p>
+} @else {
+  <app-crud-form [fields]="fields" [saveWith]="send" saveLabel="Send message" busyLabel="Sending…"
+                 errorText="Couldn’t send your message. Try again." [showCancel]="false" (saved)="sent = true" />
+}

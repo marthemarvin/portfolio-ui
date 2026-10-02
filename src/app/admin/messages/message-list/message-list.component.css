@@ -1,0 +1,21 @@
+tr.unread td {
+  font-weight: 600;
+}
+
+.from {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 0.5rem;
+  margin: 0;
+}
+
+.received {
+  margin: 0.25rem 0 0;
+  color: var(--muted);
+  font-size: var(--text-sm);
+}
+
+.body {
+  margin: 1.5rem 0 2rem;
+  white-space: pre-line;
+}

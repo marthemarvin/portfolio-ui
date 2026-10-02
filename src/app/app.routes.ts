@@ -7,6 +7,7 @@ import { CourseDetailComponent } from './home/course-detail/course-detail.compon
 import { ExperienceComponent } from './home/experience/experience.component';
 import { CertificatesComponent } from './home/certificates/certificates.component';
 import { SkillsComponent } from './home/skills/skills.component';
+import { ContactComponent } from './home/contact/contact.component';
 import { LoginComponent } from './login/login.component';
 import { AdminLayoutComponent } from './admin/admin-layout/admin-layout.component';
 import { CourseListComponent } from './admin/courses/course-list/course-list.component';
@@ -14,6 +15,7 @@ import { AboutPageComponent } from './admin/about/about-page.component';
 import { ExperienceListComponent } from './admin/experiences/experience-list/experience-list.component';
 import { CertificateListComponent } from './admin/certificates/certificate-list/certificate-list.component';
 import { SkillListComponent } from './admin/skills/skill-list/skill-list.component';
+import { MessageListComponent } from './admin/messages/message-list/message-list.component';
 
 export const routes: Routes = [
   {
@@ -25,7 +27,8 @@ export const routes: Routes = [
       { path: 'skills', component: SkillsComponent, title: 'Skills' },
       { path: 'certificates', component: CertificatesComponent, title: 'Certificates' },
       { path: 'courses', component: CoursesComponent, title: 'Courses' },
-      { path: 'courses/:id', component: CourseDetailComponent, title: 'Course' }
+      { path: 'courses/:id', component: CourseDetailComponent, title: 'Course' },
+      { path: 'contact', component: ContactComponent, title: 'Contact' }
     ]
   },
   { path: 'login', component: LoginComponent, title: 'Sign in' },
@@ -39,7 +42,8 @@ export const routes: Routes = [
       { path: 'experience', component: ExperienceListComponent, title: 'Experience' },
       { path: 'skills', component: SkillListComponent, title: 'Skills' },
       { path: 'certificates', component: CertificateListComponent, title: 'Certificates' },
-      { path: 'courses', component: CourseListComponent, title: 'Courses' }
+      { path: 'courses', component: CourseListComponent, title: 'Courses' },
+      { path: 'messages', component: MessageListComponent, title: 'Messages' }
     ]
   }
 ];
