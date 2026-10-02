@@ -43,7 +43,10 @@ export class MessageListComponent implements OnInit {
     this.opened = message;
     if (!message.isRead) {
       this.messages.markAsRead(message.id).subscribe({
-        next: () => message.isRead = true
+        next: () => {
+          message.isRead = true;
+          this.messages.refreshUnread();
+        }
       });
     }
   }
@@ -60,6 +63,7 @@ export class MessageListComponent implements OnInit {
     }
     this.messages.delete(message.id).subscribe({
       next: () => {
+        this.messages.refreshUnread();
         const current = this.page!;
         // Step back a page when the last message on it was deleted.
         this.load(current.content.length === 1 && current.number > 0 ? current.number - 1 : current.number);

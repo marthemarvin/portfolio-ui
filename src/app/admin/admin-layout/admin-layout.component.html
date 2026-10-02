@@ -1,7 +1,12 @@
 <div class="admin theme-pink">
   <nav class="sidebar" aria-label="Sections">
     @for (section of sections; track section.path) {
-      <a [routerLink]="section.path" routerLinkActive="active" ariaCurrentWhenActive="page">{{ section.label }}</a>
+      <a [routerLink]="section.path" routerLinkActive="active" ariaCurrentWhenActive="page">
+        {{ section.label }}
+        @if (section.count?.(); as count) {
+          <span class="count">{{ count }}<span class="visually-hidden"> unread</span></span>
+        }
+      </a>
     }
     <button type="button" class="secondary sign-out" (click)="signOut()">Sign out</button>
   </nav>

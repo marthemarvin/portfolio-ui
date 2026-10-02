@@ -19,6 +19,10 @@
 }
 
 .sidebar a {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
   padding: 0.625rem 0.875rem;
   border-radius: 10px;
   color: var(--ink);
@@ -33,6 +37,17 @@
   background: var(--bg);
   color: var(--accent);
   font-weight: 500;
+}
+
+.count {
+  min-width: 1.5rem;
+  padding: 0.125rem 0.5rem;
+  border-radius: 999px;
+  background: var(--accent);
+  color: #fff;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  text-align: center;
 }
 
 .sign-out {
