@@ -225,6 +225,16 @@ h1 {
   padding-left: 1.5em;
 }
 
+/* Filled bullets everywhere. Inside another list (like the Experience page) browsers would draw hollow circles. */
+/* Filled bullets everywhere. Inside another list (like the Experience page) browsers would draw hollow circles. */
+.rich-text ul {
+  list-style-type: disc;
+}
+
+.rich-text ol {
+  list-style-type: decimal;
+}
+
 .rich-text li + li {
   margin-top: 0.25em;
 }
