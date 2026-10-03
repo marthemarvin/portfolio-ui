@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, PLATFORM_ID, inject } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, PLATFORM_ID, inject } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { CdkDrag, CdkDragDrop, CdkDragHandle, CdkDropList, moveItemInArray } from '@angular/cdk/drag-drop';
 import { CrudField, CrudFormComponent } from '../crud-form/crud-form.component';
@@ -35,6 +35,7 @@ export class CrudPageComponent implements OnInit {
   @Input() groupBy: ((item: any) => string) | null = null;
 
   private isBrowser = isPlatformBrowser(inject(PLATFORM_ID));
+  private host = inject(ElementRef<HTMLElement>);
 
   page: Page<Item> | null = null;
   error = '';
@@ -76,6 +77,22 @@ export class CrudPageComponent implements OnInit {
     this.load(this.page?.number ?? 0);
   }
 
+  // The floating copy of a dragged table row loses the table's column widths, so give it the real ones.
+  matchPreviewWidths(): void {
+    const host = this.host.nativeElement;
+    const preview = host.querySelector('tr.cdk-drag-preview') as HTMLTableRowElement | null;
+    const placeholder = host.querySelector('tr.cdk-drag-placeholder') as HTMLTableRowElement | null;
+    if (!preview || !placeholder) {
+      return;
+    }
+    Array.from(placeholder.cells).forEach((cell, i) => {
+      const previewCell = preview.cells[i];
+      if (previewCell) {
+        previewCell.style.width = `${cell.getBoundingClientRect().width}px`;
+      }
+    });
+  }
+
   // Drag and drop: the row was dropped at a new place.
   drop(event: CdkDragDrop<Item[]>): void {
     this.move(event.previousIndex, event.currentIndex);
@@ -89,7 +106,10 @@ export class CrudPageComponent implements OnInit {
     if (target < 0 || target >= items.length || !this.sameGroup(items[index], items[target])) {
       return;
     }
+    const id = items[index].id;
     this.move(index, target);
+    // Moving the row drops keyboard focus, so put it back on the same row's handle.
+    setTimeout(() => this.host.nativeElement.querySelector(`[data-handle-for="${id}"]`)?.focus());
   }
 
   // Passed to the drop list: a row may only be dropped where its group is.
@@ -113,8 +133,9 @@ export class CrudPageComponent implements OnInit {
     this.error = '';
     this.service.reorder(order).subscribe({
       error: () => {
-        this.error = 'Couldn’t save the new order. Try again.';
+        // Reload to put the rows back as they are saved, then show the message (load() clears old messages).
         this.load(page.number);
+        this.error = 'Couldn’t save the new order. Try again.';
       }
     });
   }

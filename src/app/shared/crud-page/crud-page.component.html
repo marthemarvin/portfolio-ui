@@ -24,10 +24,11 @@
         <tbody cdkDropList [cdkDropListData]="page.content" [cdkDropListDisabled]="!reorderable"
                [cdkDropListSortPredicate]="canDropAt" (cdkDropListDropped)="drop($event)">
           @for (item of page.content; track item.id; let i = $index) {
-            <tr cdkDrag [cdkDragData]="item" cdkDragLockAxis="y" cdkDragPreviewContainer="parent">
+            <tr cdkDrag [cdkDragData]="item" cdkDragLockAxis="y" cdkDragPreviewContainer="parent"
+                (cdkDragStarted)="matchPreviewWidths()">
               @if (reorderable) {
                 <td class="handle-cell">
-                  <button type="button" class="drag-handle" cdkDragHandle
+                  <button type="button" class="drag-handle" cdkDragHandle [attr.data-handle-for]="item.id"
                           [attr.aria-label]="'Move ' + columns[0].value(item) + '. Use the up and down arrow keys.'"
                           (keydown.arrowup)="moveByKey($event, i, -1)" (keydown.arrowdown)="moveByKey($event, i, 1)">
                     <svg viewBox="0 0 10 16" width="10" height="16" aria-hidden="true">

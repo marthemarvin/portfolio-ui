@@ -369,7 +369,8 @@ button.drag-handle svg {
 
 /* The row being dragged follows the pointer; the gap it leaves shows where it will land. */
 tr.cdk-drag-preview {
-  display: table-row;
+  display: table;
+  table-layout: fixed;
   background: var(--field);
   box-shadow: 0 6px 18px rgb(0 0 0 / 0.12);
   cursor: grabbing;
