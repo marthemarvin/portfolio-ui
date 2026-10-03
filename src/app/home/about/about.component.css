@@ -45,10 +45,18 @@ h2 + .bio {
   flex-wrap: wrap;
   gap: 0.5rem 1.5rem;
   margin: 2rem 0 0;
-  padding: 0;
+  padding: 0 0 2rem;
+  border-bottom: 1px solid var(--line);
   list-style: none;
 }
 
 .links:empty {
   display: none;
+}
+
+/* Underlined so they read as links at a glance. */
+.links a {
+  text-decoration: underline;
+  text-underline-offset: 0.25em;
+  text-decoration-skip-ink: none;
 }
