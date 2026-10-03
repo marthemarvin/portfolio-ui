@@ -24,7 +24,8 @@ export class AdminLayoutComponent implements OnInit {
     { label: 'Skills', path: 'skills' },
     { label: 'Certificates', path: 'certificates' },
     { label: 'Courses', path: 'courses' },
-    { label: 'Messages', path: 'messages', count: this.messages.unread }
+    { label: 'Messages', path: 'messages', count: this.messages.unread },
+    { label: 'Audit', path: 'audit' }
   ];
 
   ngOnInit(): void {

@@ -16,6 +16,7 @@ import { ExperienceListComponent } from './admin/experiences/experience-list/exp
 import { CertificateListComponent } from './admin/certificates/certificate-list/certificate-list.component';
 import { SkillListComponent } from './admin/skills/skill-list/skill-list.component';
 import { MessageListComponent } from './admin/messages/message-list/message-list.component';
+import { AuditPageComponent } from './admin/audit/audit-page/audit-page.component';
 
 export const routes: Routes = [
   {
@@ -43,7 +44,8 @@ export const routes: Routes = [
       { path: 'skills', component: SkillListComponent, title: 'Skills' },
       { path: 'certificates', component: CertificateListComponent, title: 'Certificates' },
       { path: 'courses', component: CourseListComponent, title: 'Courses' },
-      { path: 'messages', component: MessageListComponent, title: 'Messages' }
+      { path: 'messages', component: MessageListComponent, title: 'Messages' },
+      { path: 'audit', component: AuditPageComponent, title: 'Audit' }
     ]
   }
 ];

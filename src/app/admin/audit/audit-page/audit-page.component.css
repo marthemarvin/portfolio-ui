@@ -1,0 +1,23 @@
+.method {
+  display: inline-block;
+  min-width: 3.5rem;
+  color: var(--muted);
+  font-size: var(--text-sm);
+  font-weight: 600;
+}
+
+.number {
+  text-align: right;
+  white-space: nowrap;
+}
+
+td {
+  overflow-wrap: anywhere;
+}
+
+/* On phones the method sits above the path, the same on every row. */
+@media (max-width: 640px) {
+  .method {
+    display: block;
+  }
+}

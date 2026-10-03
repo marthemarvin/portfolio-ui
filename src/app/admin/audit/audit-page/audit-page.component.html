@@ -1,0 +1,32 @@
+<app-page-header title="Audit" />
+
+@if (error) {
+  <p class="form-error" role="alert">{{ error }}</p>
+} @else if (hits) {
+  @if (hits.length) {
+    <div class="table-scroll">
+      <table>
+        <thead>
+          <tr>
+            <th>Endpoint</th>
+            <th class="number">Calls</th>
+            <th>Last called</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (hit of hits; track hit.id) {
+            <tr>
+              <td><span class="method">{{ hit.method }}</span> {{ hit.endpoint }}</td>
+              <td class="number">{{ hit.hitCount | number }}</td>
+              <td>{{ hit.updatedAt | date: 'd MMM y, HH:mm' }}</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  } @else {
+    <p>No API calls recorded yet.</p>
+  }
+} @else {
+  <p>Loading…</p>
+}
