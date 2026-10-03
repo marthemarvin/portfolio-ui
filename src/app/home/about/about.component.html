@@ -1,16 +1,20 @@
 @if (about) {
-  @if (about.image) {
-    <img class="photo" [src]="about.image" alt="">
-  }
-  @if (about.fullName) {
-    <h1>{{ about.fullName }}</h1>
-  }
-  @if (about.headline) {
-    <p class="headline">{{ about.headline }}</p>
-  }
-  @if (about.location) {
-    <p class="location">{{ about.location }}</p>
-  }
+  <div class="intro">
+    @if (about.image) {
+      <img class="photo" [src]="about.image" alt="">
+    }
+    <div>
+      @if (about.fullName) {
+        <h1>{{ about.fullName }}</h1>
+      }
+      @if (about.headline) {
+        <p class="headline">{{ about.headline }}</p>
+      }
+      @if (about.location) {
+        <p class="location">{{ about.location }}</p>
+      }
+    </div>
+  </div>
   @if (about.bio) {
     <app-rich-text class="bio" [text]="about.bio" />
   }

@@ -1,10 +1,26 @@
+/* Photo on the left, name / headline / location on the right. */
+.intro {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
 /* Same size and shape as the photo preview in Admin → About. */
 .photo {
   display: block;
-  max-width: 100%;
+  flex-shrink: 0;
+  max-width: 10rem;
   max-height: 10rem;
-  margin-bottom: 2rem;
   border-radius: 10px;
+}
+
+/* On small phones the photo goes back above the name. */
+@media (max-width: 520px) {
+  .intro {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.5rem;
+  }
 }
 
 h1 {
