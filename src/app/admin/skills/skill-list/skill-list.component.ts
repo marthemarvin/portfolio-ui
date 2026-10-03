@@ -1,6 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { CrudPageComponent } from '../../../shared/crud-page/crud-page.component';
 import { skillColumns, skillFields } from '../skill-fields';
+import { Skill } from '../skill';
 import { SkillService } from '../skill.service';
 
 @Component({
@@ -13,4 +14,6 @@ export class SkillListComponent {
   skills = inject(SkillService);
   fields = skillFields;
   columns = skillColumns;
+  // Skills are reordered within their category, like they are grouped on the public page.
+  byCategory = (skill: Skill) => skill.category;
 }

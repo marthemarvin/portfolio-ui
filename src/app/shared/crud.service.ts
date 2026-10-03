@@ -30,6 +30,11 @@ export abstract class CrudService<T, TRequest> {
     return this.http.put<T>(`${this.url}/${id}`, body);
   }
 
+  // Saves a new order: each item's position, lowest first. The backend stores it as displayOrder.
+  reorder(items: { id: number; position: number }[]): Observable<void> {
+    return this.http.put<void>(`${this.url}/reorder`, items);
+  }
+
   delete(id: number): Observable<void> {
     return this.http.delete<void>(`${this.url}/${id}`);
   }

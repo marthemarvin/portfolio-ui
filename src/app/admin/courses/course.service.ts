@@ -7,7 +7,7 @@ import { Course, CourseRequest } from './course';
 @Injectable({ providedIn: 'root' })
 export class CourseService extends CrudService<Course, CourseRequest> {
   constructor() {
-    super('courses');
+    super('courses', ['displayOrder,asc', 'id,asc']);
   }
 
   // Public list for the main page: only courses marked "Show on portfolio". No token needed.

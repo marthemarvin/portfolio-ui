@@ -8,7 +8,7 @@ import { Experience, ExperienceRequest } from './experience';
 @Injectable({ providedIn: 'root' })
 export class ExperienceService extends CrudService<Experience, ExperienceRequest> {
   constructor() {
-    super('experiences', 'startDate,desc');
+    super('experiences', ['displayOrder,asc', 'id,asc']);
   }
 
   // Public list for the Experience page: only entries marked "Show on portfolio", newest first, one page at a time.

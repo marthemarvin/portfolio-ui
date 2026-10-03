@@ -1,5 +1,6 @@
 import { Component, Input, OnInit, PLATFORM_ID, inject } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
+import { CdkDrag, CdkDragDrop, CdkDragHandle, CdkDropList, moveItemInArray } from '@angular/cdk/drag-drop';
 import { CrudField, CrudFormComponent } from '../crud-form/crud-form.component';
 import { CrudService } from '../crud.service';
 import { ModalComponent } from '../modal/modal.component';
@@ -16,10 +17,11 @@ export interface CrudColumn {
 type Item = { id: number };
 
 // A whole admin section: table with Edit / Delete, an "Add" button, the add / edit pop-up and paging.
+// With `reorderable`, rows get a handle to drag them (or move them with the arrow keys); the new order is saved at once.
 @Component({
   selector: 'app-crud-page',
   standalone: true,
-  imports: [PageHeaderComponent, PagerComponent, ModalComponent, CrudFormComponent],
+  imports: [PageHeaderComponent, PagerComponent, ModalComponent, CrudFormComponent, CdkDropList, CdkDrag, CdkDragHandle],
   templateUrl: './crud-page.component.html'
 })
 export class CrudPageComponent implements OnInit {
@@ -28,6 +30,9 @@ export class CrudPageComponent implements OnInit {
   @Input({ required: true }) service!: CrudService<any, any>;
   @Input({ required: true }) fields: CrudField[] = [];
   @Input({ required: true }) columns: CrudColumn[] = [];
+  @Input() reorderable = false;
+  // Rows can only be moved among rows of the same group, e.g. skills within their category.
+  @Input() groupBy: ((item: any) => string) | null = null;
 
   private isBrowser = isPlatformBrowser(inject(PLATFORM_ID));
 
@@ -68,8 +73,50 @@ export class CrudPageComponent implements OnInit {
 
   onSaved(): void {
     this.closeForm();
-    // A new item may land on the first page, so go back there after adding.
-    this.load(this.selected ? this.page?.number ?? 0 : 0);
+    this.load(this.page?.number ?? 0);
+  }
+
+  // Drag and drop: the row was dropped at a new place.
+  drop(event: CdkDragDrop<Item[]>): void {
+    this.move(event.previousIndex, event.currentIndex);
+  }
+
+  // Keyboard: arrow up / down on a row's handle moves it one place, staying inside its group.
+  moveByKey(event: Event, index: number, step: -1 | 1): void {
+    event.preventDefault();
+    const items = this.page!.content;
+    const target = index + step;
+    if (target < 0 || target >= items.length || !this.sameGroup(items[index], items[target])) {
+      return;
+    }
+    this.move(index, target);
+  }
+
+  // Passed to the drop list: a row may only be dropped where its group is.
+  canDropAt = (index: number, drag: CdkDrag<Item>): boolean =>
+    this.sameGroup(drag.data, this.page!.content[index]);
+
+  private sameGroup(a: Item, b: Item): boolean {
+    return !this.groupBy || this.groupBy(a) === this.groupBy(b);
+  }
+
+  // Moves the row on screen straight away, then saves the order of this page.
+  // Positions continue from earlier pages (page 2 starts at 20), so items on other pages keep their place.
+  private move(from: number, to: number): void {
+    if (from === to) {
+      return;
+    }
+    const page = this.page!;
+    moveItemInArray(page.content, from, to);
+    const first = page.number * page.size;
+    const order = page.content.map((item, i) => ({ id: item.id, position: first + i }));
+    this.error = '';
+    this.service.reorder(order).subscribe({
+      error: () => {
+        this.error = 'Couldn’t save the new order. Try again.';
+        this.load(page.number);
+      }
+    });
   }
 
   remove(item: Item): void {

@@ -8,7 +8,7 @@ import { Certificate, CertificateRequest } from './certificate';
 @Injectable({ providedIn: 'root' })
 export class CertificateService extends CrudService<Certificate, CertificateRequest> {
   constructor() {
-    super('certificates', 'issueDate,desc');
+    super('certificates', ['displayOrder,asc', 'id,asc']);
   }
 
   // Public list for the Certificates page: only entries marked "Show on portfolio", newest first, one page at a time.

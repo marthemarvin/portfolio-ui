@@ -12,15 +12,32 @@
       <table>
         <thead>
           <tr>
+            @if (reorderable) {
+              <th class="handle-cell"><span class="visually-hidden">Order</span></th>
+            }
             @for (column of columns; track column.label) {
               <th>{{ column.label }}</th>
             }
             <th><span class="visually-hidden">Actions</span></th>
           </tr>
         </thead>
-        <tbody>
-          @for (item of page.content; track item.id) {
-            <tr>
+        <tbody cdkDropList [cdkDropListData]="page.content" [cdkDropListDisabled]="!reorderable"
+               [cdkDropListSortPredicate]="canDropAt" (cdkDropListDropped)="drop($event)">
+          @for (item of page.content; track item.id; let i = $index) {
+            <tr cdkDrag [cdkDragData]="item" cdkDragLockAxis="y" cdkDragPreviewContainer="parent">
+              @if (reorderable) {
+                <td class="handle-cell">
+                  <button type="button" class="drag-handle" cdkDragHandle
+                          [attr.aria-label]="'Move ' + columns[0].value(item) + '. Use the up and down arrow keys.'"
+                          (keydown.arrowup)="moveByKey($event, i, -1)" (keydown.arrowdown)="moveByKey($event, i, 1)">
+                    <svg viewBox="0 0 10 16" width="10" height="16" aria-hidden="true">
+                      <circle cx="2" cy="2" r="1.5" /><circle cx="8" cy="2" r="1.5" />
+                      <circle cx="2" cy="8" r="1.5" /><circle cx="8" cy="8" r="1.5" />
+                      <circle cx="2" cy="14" r="1.5" /><circle cx="8" cy="14" r="1.5" />
+                    </svg>
+                  </button>
+                </td>
+              }
               @for (column of columns; track column.label) {
                 <td>{{ column.value(item) }}</td>
               }

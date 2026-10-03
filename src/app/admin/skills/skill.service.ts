@@ -7,7 +7,7 @@ import { Skill, SkillRequest } from './skill';
 @Injectable({ providedIn: 'root' })
 export class SkillService extends CrudService<Skill, SkillRequest> {
   constructor() {
-    super('skills', ['category,asc', 'displayOrder,asc']);
+    super('skills', ['category,asc', 'displayOrder,asc', 'id,asc']);
   }
 
   // Public list for the Skills page: only skills marked "Show on portfolio", sorted by category then order.
