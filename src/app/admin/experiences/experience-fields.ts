@@ -9,9 +9,9 @@ export const experienceFields: CrudField[] = [
   { name: 'location', label: 'Location', type: 'text' },
   { name: 'startDate', label: 'Start date', type: 'date', required: true },
   { name: 'endDate', label: 'End date (leave empty if you work here now)', type: 'date' },
+  { name: 'companyLink', label: 'Company website', type: 'url' },
   { name: 'description', label: 'Description', type: 'richtext' },
   { name: 'companyLogo', label: 'Company logo', type: 'image' },
-  { name: 'companyLink', label: 'Company website', type: 'url' },
   { name: 'isActive', label: 'Show on portfolio', type: 'checkbox', default: true }
 ];
 

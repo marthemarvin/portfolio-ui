@@ -17,7 +17,7 @@ export interface CrudField {
 }
 
 // Fields that take the whole width when the form shows two columns.
-const FULL_WIDTH_TYPES: CrudField['type'][] = ['textarea', 'richtext', 'image', 'checkbox'];
+const FULL_WIDTH_TYPES: CrudField['type'][] = ['textarea', 'richtext', 'checkbox'];
 
 // Toolbar of rich text fields: heading, bold / italic / underline, lists, link, clear formatting.
 const RICH_TEXT_TOOLBAR: QuillModules = {

@@ -6,7 +6,7 @@
         {{ field.label }}
       </label>
     } @else if (field.type === 'image') {
-      <app-form-field class="full" [label]="field.label" [fieldId]="field.name" [error]="imageErrors[field.name] || null">
+      <app-form-field [label]="field.label" [fieldId]="field.name" [error]="imageErrors[field.name] || null">
         @if (imagePreview(field); as preview) {
           <img class="image-preview" [src]="preview" alt="">
         }
