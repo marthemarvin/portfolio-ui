@@ -2,11 +2,13 @@ import { Component, OnInit, PLATFORM_ID, inject } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
 import { About } from '../../admin/about/about';
+import { RichTextComponent } from '../../shared/rich-text/rich-text.component';
 import { AboutService } from '../../admin/about/about.service';
 
 @Component({
   selector: 'app-about',
   standalone: true,
+  imports: [RichTextComponent],
   templateUrl: './about.component.html',
   styleUrl: './about.component.css'
 })

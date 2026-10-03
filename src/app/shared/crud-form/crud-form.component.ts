@@ -1,18 +1,33 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, ValidatorFn, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
+import { QuillEditorComponent, QuillModules } from 'ngx-quill';
 import { FormFieldComponent } from '../form-field/form-field.component';
 
 // One field of the form. The form is built from a list of these.
 export interface CrudField {
   name: string;
   label: string;
-  type: 'text' | 'textarea' | 'url' | 'email' | 'date' | 'number' | 'checkbox' | 'image';
+  type: 'text' | 'textarea' | 'richtext' | 'url' | 'email' | 'date' | 'number' | 'checkbox' | 'image';
   required?: boolean;
   default?: string | boolean;
   placeholder?: string;
   maxLength?: number;
 }
+
+// Fields that take the whole width when the form shows two columns.
+const FULL_WIDTH_TYPES: CrudField['type'][] = ['textarea', 'richtext', 'image', 'checkbox'];
+
+// Toolbar of rich text fields: heading, bold / italic / underline, lists, link, clear formatting.
+const RICH_TEXT_TOOLBAR: QuillModules = {
+  toolbar: [
+    [{ header: [2, 3, false] }],
+    ['bold', 'italic', 'underline'],
+    [{ list: 'ordered' }, { list: 'bullet' }],
+    ['link'],
+    ['clean']
+  ]
+};
 
 // Largest image you can upload, before base64 makes it about a third bigger.
 const MAX_IMAGE_MB = 5;
@@ -20,13 +35,14 @@ const MAX_IMAGE_MB = 5;
 // A form built from a list of fields (admin sections and the public contact form).
 // `value` fills it in (leave it out for an empty form). `saveWith` does the API call; then `saved` is emitted.
 //
+// Rich text fields are edited with a Word-like toolbar (ngx-quill) and saved as HTML.
 // Image fields: the control holds the current image URL. A newly chosen file is read as a base64 data URI
 // and sent as `<name>Base64` (e.g. imageBase64); the backend uploads it and returns the new URL.
 // When no new file is chosen only the URL is sent, so the backend keeps the current image.
 @Component({
   selector: 'app-crud-form',
   standalone: true,
-  imports: [ReactiveFormsModule, FormFieldComponent],
+  imports: [ReactiveFormsModule, FormFieldComponent, QuillEditorComponent],
   templateUrl: './crud-form.component.html'
 })
 export class CrudFormComponent implements OnInit {
@@ -35,10 +51,14 @@ export class CrudFormComponent implements OnInit {
   @Input({ required: true }) saveLabel = '';
   @Input() value: object | null = null;
   @Input() showCancel = true;
+  // Two columns on wide screens: short fields side by side, long ones across the whole width.
+  @Input() wide = false;
   @Input() busyLabel = 'Saving…';
   @Input() errorText = 'Couldn’t save. Try again.';
   @Output() saved = new EventEmitter<void>();
   @Output() cancelled = new EventEmitter<void>();
+
+  richTextModules = RICH_TEXT_TOOLBAR;
 
   form = new FormGroup<Record<string, FormControl>>({});
   saving = false;
@@ -52,7 +72,10 @@ export class CrudFormComponent implements OnInit {
     const values = (this.value ?? {}) as Record<string, unknown>;
     for (const field of this.fields) {
       const empty = field.type === 'checkbox' ? false : '';
-      const value = values[field.name] ?? field.default ?? empty;
+      let value = values[field.name] ?? field.default ?? empty;
+      if (field.type === 'richtext' && typeof value === 'string') {
+        value = plainTextToHtml(value);
+      }
       const validators: ValidatorFn[] = [];
       if (field.required) validators.push(Validators.required);
       if (field.type === 'email') validators.push(Validators.email);
@@ -141,6 +164,10 @@ export class CrudFormComponent implements OnInit {
     }
   }
 
+  isFullWidth(field: CrudField): boolean {
+    return FULL_WIDTH_TYPES.includes(field.type);
+  }
+
   errorFor(field: CrudField): string | null {
     const control = this.form.controls[field.name];
     if (!control.invalid || !control.touched) {
@@ -154,4 +181,21 @@ export class CrudFormComponent implements OnInit {
     }
     return `${field.label} must be at most ${field.maxLength} characters.`;
   }
+}
+
+// Text saved before rich text existed has no HTML. Turn it into paragraphs so the editor keeps its layout:
+// blank lines start a new paragraph, and a block of lines starting with "- " becomes a bulleted list.
+function plainTextToHtml(text: string): string {
+  if (!text.trim() || /<[a-z][\s\S]*>/i.test(text)) {
+    return text;
+  }
+  const escape = (line: string) =>
+    line.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  return text.trim().split(/\n\s*\n/).map(block => {
+    const lines = block.split('\n').map(line => line.trim()).filter(Boolean);
+    if (lines.every(line => /^[-•*]\s+/.test(line))) {
+      return '<ul>' + lines.map(line => `<li>${escape(line.replace(/^[-•*]\s+/, ''))}</li>`).join('') + '</ul>';
+    }
+    return `<p>${lines.map(escape).join('<br>')}</p>`;
+  }).join('');
 }

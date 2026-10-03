@@ -131,6 +131,112 @@ h1 {
   min-width: 0;
 }
 
+/* Wide forms (admin): two columns on big screens, long fields across both. */
+@media (min-width: 720px) {
+  .stack.two-col {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.25rem 1.5rem;
+    max-width: 56rem;
+  }
+
+  .stack.two-col > .full {
+    grid-column: 1 / -1;
+  }
+}
+
+/* Rich text editor (ngx-quill), styled like the other inputs. */
+.rich-editor {
+  display: block;
+}
+
+.rich-editor .ql-toolbar.ql-snow {
+  border: 1px solid var(--line);
+  border-radius: 10px 10px 0 0;
+  background: var(--surface);
+  font-family: var(--font-body);
+}
+
+.rich-editor .ql-container.ql-snow {
+  border: 1px solid var(--line);
+  border-top: 0;
+  border-radius: 0 0 10px 10px;
+  background: var(--field);
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+}
+
+.rich-editor .ql-editor {
+  min-height: 9rem;
+  max-height: 24rem;
+  overflow-y: auto;
+  line-height: 1.55;
+}
+
+.rich-editor .ql-editor.ql-blank::before {
+  color: var(--muted);
+  font-style: normal;
+}
+
+.rich-editor .ql-snow.ql-toolbar button:hover .ql-stroke,
+.rich-editor .ql-snow.ql-toolbar button.ql-active .ql-stroke {
+  stroke: var(--accent);
+}
+
+.rich-editor .ql-snow.ql-toolbar button:hover .ql-fill,
+.rich-editor .ql-snow.ql-toolbar button.ql-active .ql-fill {
+  fill: var(--accent);
+}
+
+.rich-editor .ql-snow.ql-toolbar button:hover,
+.rich-editor .ql-snow.ql-toolbar button.ql-active,
+.rich-editor .ql-snow .ql-picker-label:hover,
+.rich-editor .ql-snow .ql-picker-label.ql-active {
+  color: var(--accent);
+}
+
+/* Text written with the rich text editor, on the public pages. */
+.rich-text > :first-child {
+  margin-top: 0;
+}
+
+.rich-text > :last-child {
+  margin-bottom: 0;
+}
+
+.rich-text p,
+.rich-text ul,
+.rich-text ol {
+  margin: 0 0 1em;
+}
+
+.rich-text ul,
+.rich-text ol {
+  padding-left: 1.5em;
+}
+
+.rich-text li + li {
+  margin-top: 0.25em;
+}
+
+.rich-text h2,
+.rich-text h3 {
+  margin: 1.5em 0 0.5em;
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.rich-text h2 {
+  font-size: 1.1875rem;
+}
+
+.rich-text h3 {
+  font-size: var(--text-base);
+}
+
+.rich-text.plain {
+  white-space: pre-line;
+}
+
 .field {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
@@ -230,7 +336,7 @@ textarea {
 
 /* Pop-up (shared/modal) */
 dialog {
-  width: min(36rem, calc(100vw - 2rem));
+  width: min(56rem, calc(100vw - 2rem));
   max-height: calc(100dvh - 2rem);
   padding: 2rem;
   border: 0;

@@ -22,7 +22,7 @@
               @if (experience.companyLink) {<a [href]="experience.companyLink">{{ experience.companyName }}</a>} @else {<span>{{ experience.companyName }}</span>}@if (experience.location) {<span>, {{ experience.location }}</span>}
             </p>
             @if (experience.description) {
-              <p class="description">{{ experience.description }}</p>
+              <app-rich-text class="description" [text]="experience.description" />
             }
           </div>
         </li>

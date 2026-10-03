@@ -12,7 +12,11 @@
     <p class="location">{{ about.location }}</p>
   }
   @if (about.bio) {
-    <p class="bio">{{ about.bio }}</p>
+    <app-rich-text class="bio" [text]="about.bio" />
+  }
+  @if (about.projectDescription) {
+    <h2>How I built this site</h2>
+    <app-rich-text class="bio" [text]="about.projectDescription" />
   }
   <ul class="links">
     @if (about.email) {

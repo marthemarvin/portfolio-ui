@@ -3,6 +3,7 @@ export interface About {
   fullName: string | null;
   headline: string | null;
   bio: string | null;
+  projectDescription: string | null;  // how this portfolio was built
   image: string | null;
   location: string | null;
   email: string | null;

@@ -3,7 +3,7 @@
 @if (error) {
   <p class="form-error" role="alert">{{ error }}</p>
 } @else if (loaded) {
-  <app-crud-form [fields]="fields" [value]="about" [saveWith]="saveAbout" saveLabel="Save"
+  <app-crud-form [wide]="true" [fields]="fields" [value]="about" [saveWith]="saveAbout" saveLabel="Save"
                  [showCancel]="false" (saved)="saved = true" />
   @if (saved) {
     <p class="saved" role="status">Saved.</p>

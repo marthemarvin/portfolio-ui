@@ -61,7 +61,7 @@
 
 @if (formOpen) {
   <app-modal [title]="(selected ? 'Edit ' : 'Add ') + itemName" (closed)="closeForm()">
-    <app-crud-form [fields]="fields" [value]="selected" [saveWith]="saveItem" [saveLabel]="'Save ' + itemName"
+    <app-crud-form [wide]="true" [fields]="fields" [value]="selected" [saveWith]="saveItem" [saveLabel]="'Save ' + itemName"
                    (saved)="onSaved()" (cancelled)="closeForm()" />
   </app-modal>
 }

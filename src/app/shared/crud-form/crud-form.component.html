@@ -1,12 +1,12 @@
-<form class="stack" [formGroup]="form" (ngSubmit)="save()" novalidate>
+<form class="stack" [class.two-col]="wide" [formGroup]="form" (ngSubmit)="save()" novalidate>
   @for (field of fields; track field.name) {
     @if (field.type === 'checkbox') {
-      <label class="checkbox">
+      <label class="checkbox full">
         <input type="checkbox" [formControlName]="field.name">
         {{ field.label }}
       </label>
     } @else if (field.type === 'image') {
-      <app-form-field [label]="field.label" [fieldId]="field.name" [error]="imageErrors[field.name] || null">
+      <app-form-field class="full" [label]="field.label" [fieldId]="field.name" [error]="imageErrors[field.name] || null">
         @if (imagePreview(field); as preview) {
           <img class="image-preview" [src]="preview" alt="">
         }
@@ -18,8 +18,13 @@
           }
         </div>
       </app-form-field>
+    } @else if (field.type === 'richtext') {
+      <app-form-field class="full" [label]="field.label" [fieldId]="field.name" [error]="errorFor(field)">
+        <quill-editor [id]="field.name" class="rich-editor" [formControlName]="field.name" format="html"
+                      [modules]="richTextModules" [placeholder]="field.placeholder ?? ''" />
+      </app-form-field>
     } @else {
-      <app-form-field [label]="field.label" [fieldId]="field.name" [error]="errorFor(field)">
+      <app-form-field [class.full]="isFullWidth(field)" [label]="field.label" [fieldId]="field.name" [error]="errorFor(field)">
         @if (field.type === 'textarea') {
           <textarea [id]="field.name" [formControlName]="field.name" rows="4"
                     [attr.aria-invalid]="!!errorFor(field)" [attr.aria-describedby]="field.name + '-error'"></textarea>
@@ -33,10 +38,10 @@
   }
 
   @if (error) {
-    <p class="form-error" role="alert">{{ error }}</p>
+    <p class="form-error full" role="alert">{{ error }}</p>
   }
 
-  <div class="form-actions">
+  <div class="form-actions full">
     <button type="submit" [disabled]="saving">{{ saving ? busyLabel : saveLabel }}</button>
     @if (showCancel) {
       <button type="button" class="secondary" (click)="cancelled.emit()">Cancel</button>
