@@ -1,0 +1,5 @@
+@if (isHtml) {
+  <div class="rich-text" [innerHTML]="text"></div>
+} @else {
+  <p class="rich-text plain">{{ text }}</p>
+}
