@@ -1,10 +1,10 @@
+/* Same size and shape as the photo preview in Admin → About. */
 .photo {
   display: block;
-  width: 7rem;
-  height: 7rem;
+  max-width: 100%;
+  max-height: 10rem;
   margin-bottom: 2rem;
-  border-radius: 50%;
-  object-fit: cover;
+  border-radius: 10px;
 }
 
 h1 {

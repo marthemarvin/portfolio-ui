@@ -65,8 +65,10 @@
     flex-direction: column;
   }
 
+  /* On phones the sidebar becomes a bar across the top; its links wrap onto more lines when they don't fit. */
   .sidebar {
     flex-direction: row;
+    flex-wrap: wrap;
     align-items: center;
     position: static;
     width: auto;
@@ -74,7 +76,12 @@
     padding: 0.75rem 1rem;
   }
 
+  .sidebar a {
+    padding: 0.5rem 0.75rem;
+  }
+
   .sign-out {
     margin: 0 0 0 auto;
+    padding: 0.5rem 0.875rem;
   }
 }

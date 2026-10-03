@@ -6,31 +6,33 @@
 
 @if (page) {
   @if (page.content.length) {
-    <table>
-      <thead>
-        <tr>
-          <th>From</th>
-          <th>Subject</th>
-          <th>Received</th>
-          <th>Status</th>
-          <th><span class="visually-hidden">Actions</span></th>
-        </tr>
-      </thead>
-      <tbody>
-        @for (message of page.content; track message.id) {
-          <tr [class.unread]="!message.isRead">
-            <td>{{ message.name }}</td>
-            <td>{{ message.subject }}</td>
-            <td>{{ message.createdAt | date: 'd MMM y, HH:mm' }}</td>
-            <td>{{ message.isRead ? 'Read' : 'New' }}</td>
-            <td class="actions">
-              <button type="button" class="link" (click)="open(message)">Open</button>
-              <button type="button" class="link" (click)="remove(message)">Delete</button>
-            </td>
+    <div class="table-scroll">
+      <table>
+        <thead>
+          <tr>
+            <th>From</th>
+            <th>Subject</th>
+            <th>Received</th>
+            <th>Status</th>
+            <th><span class="visually-hidden">Actions</span></th>
           </tr>
-        }
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+          @for (message of page.content; track message.id) {
+            <tr [class.unread]="!message.isRead">
+              <td>{{ message.name }}</td>
+              <td>{{ message.subject }}</td>
+              <td>{{ message.createdAt | date: 'd MMM y, HH:mm' }}</td>
+              <td>{{ message.isRead ? 'Read' : 'New' }}</td>
+              <td class="actions">
+                <button type="button" class="link" (click)="open(message)">Open</button>
+                <button type="button" class="link" (click)="remove(message)">Delete</button>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
     <app-pager [page]="page.number" [totalPages]="page.totalPages" (pageChange)="load($event)" />
   } @else {
     <p>No messages yet.</p>

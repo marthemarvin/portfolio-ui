@@ -120,12 +120,20 @@ h1 {
 /* Forms */
 .stack {
   display: grid;
+  /* minmax(0, 1fr) lets the form shrink to narrow screens instead of growing to fit its widest field. */
+  grid-template-columns: minmax(0, 1fr);
   gap: 1.25rem;
   max-width: 36rem;
 }
 
+.stack > *,
+.field {
+  min-width: 0;
+}
+
 .field {
   display: grid;
+  grid-template-columns: minmax(0, 1fr);
   gap: 0.375rem;
 }
 
@@ -209,6 +217,7 @@ textarea {
 
 .image-actions input[type='file'] {
   width: auto;
+  min-width: 0;
   max-width: 100%;
   padding: 0.5rem;
 }
@@ -297,6 +306,11 @@ dialog h2 {
   justify-content: space-between;
   gap: 1rem;
   margin-bottom: 2rem;
+}
+
+/* A table that is wider than the screen scrolls sideways inside this box, not the whole page. */
+.table-scroll {
+  overflow-x: auto;
 }
 
 table {
