@@ -31,8 +31,9 @@ h1 {
 
 h2 {
   margin: 3rem 0 0;
-  font-size: 1.1875rem;
+  font-size: 1.5rem;
   font-weight: 600;
+  letter-spacing: -0.01em;
 }
 
 h2 + .bio {

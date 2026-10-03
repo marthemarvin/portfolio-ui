@@ -14,10 +14,6 @@
   @if (about.bio) {
     <app-rich-text class="bio" [text]="about.bio" />
   }
-  @if (about.projectDescription) {
-    <h2>How I built this site</h2>
-    <app-rich-text class="bio" [text]="about.projectDescription" />
-  }
   <ul class="links">
     @if (about.email) {
       <li><a [href]="'mailto:' + about.email">Email</a></li>
@@ -32,6 +28,10 @@
       <li><a [href]="about.linkedinLink">LinkedIn</a></li>
     }
   </ul>
+  @if (about.projectDescription) {
+    <h2>How I built this portfolio</h2>
+    <app-rich-text class="bio" [text]="about.projectDescription" />
+  }
 } @else if (notSetUp) {
   <p>This page isn’t set up yet.</p>
 } @else if (error) {
