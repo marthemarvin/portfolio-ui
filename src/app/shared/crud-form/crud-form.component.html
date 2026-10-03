@@ -21,7 +21,7 @@
     } @else if (field.type === 'richtext') {
       <app-form-field class="full" [label]="field.label" [fieldId]="field.name" [error]="errorFor(field)">
         <quill-editor [id]="field.name" class="rich-editor" [formControlName]="field.name" format="html"
-                      [modules]="richTextModules" [placeholder]="field.placeholder ?? ''" />
+                      [valueGetter]="richTextValue" [modules]="richTextModules" [placeholder]="field.placeholder ?? ''" />
       </app-form-field>
     } @else {
       <app-form-field [class.full]="isFullWidth(field)" [label]="field.label" [fieldId]="field.name" [error]="errorFor(field)">

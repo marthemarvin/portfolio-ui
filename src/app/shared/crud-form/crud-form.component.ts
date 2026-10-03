@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, ValidatorFn, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { QuillEditorComponent, QuillModules } from 'ngx-quill';
+import type Quill from 'quill';
 import { FormFieldComponent } from '../form-field/form-field.component';
 
 // One field of the form. The form is built from a list of these.
@@ -59,6 +60,11 @@ export class CrudFormComponent implements OnInit {
   @Output() cancelled = new EventEmitter<void>();
 
   richTextModules = RICH_TEXT_TOOLBAR;
+
+  // What a rich text field saves: clean HTML. Quill writes every space as &nbsp;, which would stop
+  // long lines from wrapping on the public page, so those become normal spaces. An empty editor saves null.
+  richTextValue = (quill: Quill): string | null =>
+    quill.getText().trim() ? quill.getSemanticHTML().replace(/&nbsp;/g, ' ') : null;
 
   form = new FormGroup<Record<string, FormControl>>({});
   saving = false;
