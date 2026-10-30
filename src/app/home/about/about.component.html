@@ -27,9 +27,6 @@
     <ul class="entry-list">
       @for (info of additionalInfo; track info.id) {
         <li>
-          @if (info.image) {
-            <img class="info-image" [src]="info.image" alt="">
-          }
           <div class="text">
             @if (info.title) {
               <h3>{{ info.title }}</h3>
@@ -38,6 +35,9 @@
               <app-rich-text class="info-description" [text]="info.description" />
             }
           </div>
+          @if (info.image) {
+            <img class="info-image" [src]="info.image" alt="">
+          }
         </li>
       }
     </ul>
