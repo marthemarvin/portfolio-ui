@@ -1,7 +1,7 @@
 import { Component, OnInit, PLATFORM_ID, inject } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
-import { About } from '../../admin/about/about';
+import { About, AdditionalInfo } from '../../admin/about/about';
 import { RichTextComponent } from '../../shared/rich-text/rich-text.component';
 import { AboutService } from '../../admin/about/about.service';
 
@@ -17,6 +17,7 @@ export class AboutComponent implements OnInit {
   private isBrowser = isPlatformBrowser(inject(PLATFORM_ID));
 
   about: About | null = null;
+  additionalInfo: AdditionalInfo[] = [];
   notSetUp = false;
   error = '';
 
@@ -26,7 +27,10 @@ export class AboutComponent implements OnInit {
       return;
     }
     this.aboutService.getPublic().subscribe({
-      next: about => this.about = about,
+      next: page => {
+        this.about = page.about;
+        this.additionalInfo = page.additionalInfo;
+      },
       error: (err: HttpErrorResponse) => {
         if (err.status === 404) {
           this.notSetUp = true;

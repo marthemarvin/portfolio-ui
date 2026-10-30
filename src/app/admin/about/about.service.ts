@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
-import { About, AboutRequest } from './about';
+import { About, AboutPage, AboutRequest } from './about';
 
 // There is only one About record, so this has just get and save (no list, create or delete).
 @Injectable({ providedIn: 'root' })
@@ -16,8 +16,8 @@ export class AboutService {
   }
 
   // Public version for the About page. No token needed; 404 means nothing has been saved yet.
-  getPublic(): Observable<About> {
-    return this.http.get<About>(`${environment.apiUrl}/api/about`);
+  getPublic(): Observable<AboutPage> {
+    return this.http.get<AboutPage>(`${environment.apiUrl}/api/about`);
   }
 
   // Creates the record the first time, updates it after that.

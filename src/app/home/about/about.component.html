@@ -36,6 +36,26 @@
     <h2>How I built this portfolio</h2>
     <app-rich-text class="bio" [text]="about.projectDescription" />
   }
+  @if (additionalInfo.length) {
+    <h2>Additional info</h2>
+    <ul class="entry-list">
+      @for (info of additionalInfo; track info.id) {
+        <li>
+          @if (info.image) {
+            <img class="info-image" [src]="info.image" alt="">
+          }
+          <div class="text">
+            @if (info.title) {
+              <h3>{{ info.title }}</h3>
+            }
+            @if (info.description) {
+              <app-rich-text class="info-description" [text]="info.description" />
+            }
+          </div>
+        </li>
+      }
+    </ul>
+  }
 } @else if (notSetUp) {
   <p>This page isn’t set up yet.</p>
 } @else if (error) {

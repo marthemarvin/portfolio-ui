@@ -76,3 +76,29 @@ h2 + .bio {
   text-underline-offset: 0.25em;
   text-decoration-skip-ink: none;
 }
+
+h2 + .entry-list {
+  margin-top: 0.75rem;
+}
+
+/* Same size and shape as the certificate badges. */
+.info-image {
+  flex-shrink: 0;
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: 10px;
+  background: var(--field);
+  object-fit: contain;
+}
+
+/* Same look as the item titles in the other lists (h3 so it doesn't pick up the section h2 spacing). */
+.entry-list h3 {
+  margin: 0;
+  font-size: 1.1875rem;
+  font-weight: 600;
+}
+
+.info-description {
+  display: block;
+  margin: 0.25rem 0 0;
+}
