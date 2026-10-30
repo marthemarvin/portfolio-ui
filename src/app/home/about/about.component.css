@@ -81,14 +81,14 @@ h2 + .entry-list {
   margin-top: 0.75rem;
 }
 
-/* Same size and shape as the certificate badges. */
+/* A portrait photo beside the text, cropped to fill the frame. */
 .info-image {
   flex-shrink: 0;
-  width: 3.5rem;
-  height: 3.5rem;
+  width: 9rem;
+  aspect-ratio: 3 / 4;
   border-radius: 10px;
   background: var(--field);
-  object-fit: contain;
+  object-fit: cover;
 }
 
 /* Same look as the item titles in the other lists (h3 so it doesn't pick up the section h2 spacing). */
