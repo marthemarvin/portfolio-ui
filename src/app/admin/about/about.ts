@@ -28,6 +28,9 @@ export interface AdditionalInfo {
   updatedAt: string;
 }
 
+// What the backend accepts when creating or updating. A new image goes in imageBase64 as a data URI.
+export type AdditionalInfoRequest = Omit<AdditionalInfo, 'id' | 'displayOrder' | 'createdAt' | 'updatedAt'> & { imageBase64: string | null };
+
 // What the public About endpoint returns: the About record plus the active additional info, in display order.
 export interface AboutPage {
   about: About;

@@ -2,22 +2,29 @@ import { Component, OnInit, PLATFORM_ID, inject } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
 import { CrudFormComponent } from '../../shared/crud-form/crud-form.component';
+import { CrudPageComponent } from '../../shared/crud-page/crud-page.component';
 import { PageHeaderComponent } from '../../shared/page-header/page-header.component';
 import { About, AboutRequest } from './about';
-import { aboutFields } from './about-fields';
+import { aboutFields, additionalInfoColumns, additionalInfoFields } from './about-fields';
 import { AboutService } from './about.service';
+import { AdditionalInfoService } from './additional-info.service';
 
 @Component({
   selector: 'app-about-page',
   standalone: true,
-  imports: [PageHeaderComponent, CrudFormComponent],
-  templateUrl: './about-page.component.html'
+  imports: [PageHeaderComponent, CrudFormComponent, CrudPageComponent],
+  templateUrl: './about-page.component.html',
+  // Space between the About form and the additional info table under it.
+  styles: ['.additional-info { display: block; margin-top: 3rem; }']
 })
 export class AboutPageComponent implements OnInit {
   private aboutService = inject(AboutService);
   private isBrowser = isPlatformBrowser(inject(PLATFORM_ID));
 
+  additionalInfo = inject(AdditionalInfoService);
   fields = aboutFields;
+  additionalInfoFields = additionalInfoFields;
+  additionalInfoColumns = additionalInfoColumns;
   about: About | null = null;
   loaded = false;
   saved = false;

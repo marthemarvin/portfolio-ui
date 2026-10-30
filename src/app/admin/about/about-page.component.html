@@ -8,6 +8,9 @@
   @if (saved) {
     <p class="saved" role="status">Saved.</p>
   }
+
+  <app-crud-page class="additional-info" title="Additional info" itemName="additional info" [service]="additionalInfo"
+                 [fields]="additionalInfoFields" [columns]="additionalInfoColumns" [reorderable]="true" />
 } @else {
   <p>Loading…</p>
 }
