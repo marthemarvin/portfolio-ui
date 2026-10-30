@@ -18,20 +18,6 @@
   @if (about.bio) {
     <app-rich-text class="bio" [text]="about.bio" />
   }
-  <ul class="links">
-    @if (about.email) {
-      <li><a [href]="'mailto:' + about.email">Email</a></li>
-    }
-    @if (about.resumeLink) {
-      <li><a [href]="about.resumeLink">Résumé</a></li>
-    }
-    @if (about.githubLink) {
-      <li><a [href]="about.githubLink">GitHub</a></li>
-    }
-    @if (about.linkedinLink) {
-      <li><a [href]="about.linkedinLink">LinkedIn</a></li>
-    }
-  </ul>
   @if (about.projectDescription) {
     <h2>How I built this portfolio</h2>
     <app-rich-text class="bio" [text]="about.projectDescription" />
@@ -56,6 +42,20 @@
       }
     </ul>
   }
+  <ul class="links">
+    @if (about.email) {
+      <li><a [href]="'mailto:' + about.email">Email</a></li>
+    }
+    @if (about.resumeLink) {
+      <li><a [href]="about.resumeLink">Résumé</a></li>
+    }
+    @if (about.githubLink) {
+      <li><a [href]="about.githubLink">GitHub</a></li>
+    }
+    @if (about.linkedinLink) {
+      <li><a [href]="about.linkedinLink">LinkedIn</a></li>
+    }
+  </ul>
 } @else if (notSetUp) {
   <p>This page isn’t set up yet.</p>
 } @else if (error) {

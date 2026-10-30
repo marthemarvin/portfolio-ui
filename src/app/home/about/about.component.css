@@ -56,14 +56,21 @@ h2 + .bio {
   margin-top: 0.75rem;
 }
 
+/* Last thing on the page, with a line above it to set it apart. */
 .links {
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem 1.5rem;
-  margin: 2rem 0 0;
-  padding: 0 0 2rem;
-  border-bottom: 1px solid var(--line);
+  margin: 3rem 0 0;
+  padding: 2rem 0 0;
+  border-top: 1px solid var(--line);
   list-style: none;
+}
+
+/* The additional info list already ends with a line, so don't draw a second one. */
+.entry-list + .links {
+  margin-top: 0;
+  border-top: none;
 }
 
 .links:empty {
