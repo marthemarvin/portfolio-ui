@@ -1,0 +1,36 @@
+<app-page-header title="Taly Webhooks" />
+
+@if (error) {
+  <p class="form-error" role="alert">{{ error }}</p>
+} @else if (webhooks) {
+  @if (webhooks.length) {
+    <div class="table-scroll">
+      <table>
+        <thead>
+          <tr>
+            <th>Received</th>
+            <th>Webhook ID</th>
+            <th>Attempt</th>
+            <th>Signature</th>
+            <th>Payload</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (webhook of webhooks; track webhook.id) {
+            <tr>
+              <td>{{ webhook.receivedAt | date: 'd MMM y, HH:mm:ss' }}</td>
+              <td>{{ webhook.webhookId }}</td>
+              <td>{{ webhook.deliveryAttempt }}</td>
+              <td>{{ webhook.signatureValid ? 'Valid' : 'Invalid' }}</td>
+              <td><code>{{ webhook.payload }}</code></td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  } @else {
+    <p>No webhooks received yet.</p>
+  }
+} @else {
+  <p>Loading…</p>
+}

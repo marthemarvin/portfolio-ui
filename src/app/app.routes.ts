@@ -17,6 +17,7 @@ import { CertificateListComponent } from './admin/certificates/certificate-list/
 import { SkillListComponent } from './admin/skills/skill-list/skill-list.component';
 import { MessageListComponent } from './admin/messages/message-list/message-list.component';
 import { AuditPageComponent } from './admin/audit/audit-page/audit-page.component';
+import { TalyWebhooksPageComponent } from './admin/taly-webhooks/taly-webhooks-page/taly-webhooks-page.component';
 
 export const routes: Routes = [
   {
@@ -45,7 +46,8 @@ export const routes: Routes = [
       { path: 'certificates', component: CertificateListComponent, title: 'Certificates' },
       { path: 'courses', component: CourseListComponent, title: 'Courses' },
       { path: 'messages', component: MessageListComponent, title: 'Messages' },
-      { path: 'audit', component: AuditPageComponent, title: 'Audit' }
+      { path: 'audit', component: AuditPageComponent, title: 'Audit' },
+      { path: 'taly-webhooks', component: TalyWebhooksPageComponent, title: 'Taly Webhooks' }
     ]
   }
 ];

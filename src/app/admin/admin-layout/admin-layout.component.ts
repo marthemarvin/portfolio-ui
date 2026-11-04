@@ -25,7 +25,8 @@ export class AdminLayoutComponent implements OnInit {
     { label: 'Certificates', path: 'certificates' },
     { label: 'Courses', path: 'courses' },
     { label: 'Messages', path: 'messages', count: this.messages.unread },
-    { label: 'Audit', path: 'audit' }
+    { label: 'Audit', path: 'audit' },
+    { label: 'Taly Webhooks', path: 'taly-webhooks' }
   ];
 
   ngOnInit(): void {
